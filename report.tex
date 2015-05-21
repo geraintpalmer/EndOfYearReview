@@ -52,6 +52,14 @@ An understanding of the situation could alleviate this pressure.
 Queueing theory, and in particular queueing networks are great techniques to model the stochastic flow of customers around a system of service nodes.
 These concepts have been successfully adapted to healthcare systems, both in detailed individual level systems, e.g. \cite{albinetal90}, \cite{creemerslambrecht07} and in examples with corser granularity, for example \cite{koizumietal05}.
 
+An example of the sort of queueing network and patient flows that will be modelled is shown in Figure~\ref{fig:healthsystem}.
+
+\begin{figure}[H]
+    \includestandalone[width=\textwidth]{images/healthsystem}
+    \caption{Patient flows around a healthcare system.}
+    \label{fig:healthsystem}
+\end{figure}
+
 From exploring data and discussing with professionals at the ABUHB, the general architecture of the health system can be constructed, and patient flows built up.
 This will then be modelled as an open queueing network.
 Using results from the theory of Jackson networks performance measures and steady-state probabilities can be obtained.
@@ -788,6 +796,38 @@ For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{
     \includestandalone[width=\textwidth]{images/markov_chain}
     \caption{Markov chain of the two node system with $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMC}
+\end{figure}
+
+Figure~\ref{fig:timestodeadlock2} shows the effect of varying the parameters of the above Markov model.
+Only parameters for one node are shown, as the other node's parameters will have the same affect.
+We can see that increasing the arrival rate $\Lambda_1$ and the transition probability $r_{12}$ results in reaching deadlock faster.
+This is intuitive as increasing these parameters results in the first node's queue filling up quicker.
+Increasing the service rate $\mu_1$ and the queueing capacity $n_1$ results in reaching deadlock slower.
+Again these are intuitive, as increasing the service rate results in moving customers out of the system quicker, and increasing the queueing capacity allows more customers in the system before becoming deadlock.
+
+\begin{figure}[H]
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varyL1}
+  \caption{Varying $\Lambda_1$}
+  \label{fig:timestodeadlock2_L1}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varyr12}
+  \caption{Varying $r_{12}$}
+  \label{fig:timestodeadlock2_r12}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varymu1}
+  \caption{Varying $\mu_1$}
+  \label{fig:timestodeadlock2_mu1}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varyn1}
+  \caption{Varying $n_1$}
+  \label{fig:timestodeadlock2_n1}
+\end{subfigure}
+\caption{Analytical \& Simulation Results of Times to Deadlock (1000 iterations)}
+\label{fig:timestodeadlock2}
 \end{figure}
 
 
