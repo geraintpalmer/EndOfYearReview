@@ -50,6 +50,8 @@ An understanding of the situation could alleviate this pressure.
 
 \subsection{Patient Flows}
 Queueing theory, and in particular queueing networks are great techniques to model the stochastic flow of customers around a system of service nodes.
+Note that throughout this report the terms node, service centre, service node and service station will be used interchangeably.
+
 These concepts have been successfully adapted to healthcare systems, both in detailed individual level systems, e.g. \cite{albinetal90}, \cite{creemerslambrecht07} and in examples with corser granularity, for example \cite{koizumietal05}.
 
 An example of the sort of queueing network and patient flows that will be modelled is shown in Figure~\ref{fig:healthsystem}.
@@ -177,8 +179,8 @@ Given that there is a room for $M$ customers to wait between nodes, once there a
 
 And approximation method for solving queueing networks with downstream blocking only in presented in \cite{takahashi80}.
 The algorithm finds the mean values of a queueing network with feedforward flows and single server nodes.
-Iteratively working from the node furthest downstream and working backwards, if that station does exhibit blocking it finds the \textit{effective service time}, that is the weighted sum of service time and the mean time blocked and waiting to transition to the next node, and computes the effective service time for the next upstream node with a recursive formula.
-This method is adapted to multi-server queues in \cite{koizumietal05}, and a similar iterative method was used in \cite{korporaaletal00}.
+Iteratively working from the node furthest downstream and working backwards, if that station does exhibit blocking it finds the effective service time, that is the weighted sum of service time and the mean time blocked and waiting to transition to the next node, and computes the effective service time for the next upstream node with a recursive formula.
+This method is adapted to multi-server service stations with no intermediate queues in \cite{koizumietal05}, and a similar iterative method was used in \cite{korporaaletal00}.
 
 Restriced queueing networks can give rise to the phenomenon of deadlock.
 In the simplest of cases, deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
@@ -631,7 +633,6 @@ This section will define and discuss the properties and detection of deadlock in
 Throughout the section, when discussing queueing networks, it is assumed that
 the queueing network is open and connected.
 Open queueing networks are those networks that have at least one node to which customers arrive from the exterior, and and least one node from which customers leave to the exterior.
-% Need to define connected networks, might be something I made up. I know what I mean though.
 
 \subsection{Deadlock}
 
@@ -717,6 +718,26 @@ For connected queueing networks, these deadlocks can be classified into transien
     queueing network are in deadlock.\\
 \end{definition}
 
+Figure~\ref{fig:transabsorb} shows a three nodes network in a transient deadlocked state, and an absorbing deadlocked state.
+In Figure~\ref{fig:trans} the occupants of servers $B_1$ and $B_2$ are blocked from entering node $A$; and the occipant of server $A_1$ is blocked from entering node $B$, and so these two nodes are in deadlock.
+However, node $C$ can continue with regular services, until the occupants of every server of $C$ attempt to join a deadlocked node.
+At which point, the whole system is deadlocked, and so has reached absorbing deadlock, show in Figure~\ref{fig:absorb}.
+
+\begin{figure}[H]
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/transientdeadlock}
+  \caption{Transient deadlock.}
+  \label{fig:trans}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/absorbingdeadlock}
+  \caption{Absorbing deadlock.}
+  \label{fig:absorb}
+\end{subfigure}
+\caption{Types of deadlock: a) transient and b) absorbing.}
+\label{fig:transabsorb}
+\end{figure}
+
 For a queueing network $Q$ with $N$ service stations, the absorbing deadlocked state corresponds to $(i_1=-1,...,i_N=-1)$, the state where all service stations experience deadlock.
 It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.
 That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.
@@ -725,8 +746,8 @@ If the routing matrix of $Q$ is complete, that is there is a possible route from
 
 \subsection{Literature Review}
 
-Most of the literature on blocking conveniently assumes the networks are
-deadlock-free. % Can you list some reference here \cite{X,Y,Z} before details below
+Most of the literature on blocking either does not consider networks with feedback loops, ignores the possibility of deadlock, or conveniently assumes the networks are
+deadlock-free.
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum subcycle of the network.
 The paper also presents algorithms for finding the minimum queueing space required to ensure deadlock never occurs, for closed cactus networks, where no two cycles have more than one node in common.
 This result is extended to multiple classes of customer in \cite{liebeherrakyildiz95}, with more restrictions such as single servers and each class having the same service time distribution.
@@ -762,8 +783,6 @@ Using these labels \textit{simple bounded circuits} are defined whose existance 
   Knot                         & In a directed graph, a knot is a set of vertices with out-edges such that while traversing the directed edges of that directed graph, once a vertex in the knot is reached, you cannot rech any vertex that is not in the knot.\\
 \end{tabular}
 
-NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
-% Should some of this be before?
 
 \subsection{State Digraph}
 
@@ -1039,7 +1058,7 @@ It is shown in \cite{stewart09} that for a discrete transition matrix of the for
 \begin{equation}
   (I - T)^{-1}e
 \end{equation}
-where $e$ is a vector of 1s.  % I am not sure if this is nicest way of doing
+where $e$ is a vector of 1s.
 % this.
 
 \subsubsection{One Node Network}
