@@ -654,30 +654,32 @@ Deadlock occurs when a customer finishes service at node $i$ and is blocked from
 That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.
 
 In Figure~\ref{fig:2in_deadlock} a simple two node queueing network is shown in a deadlocked state.
-Customer $e$ has finished service at node $1$, but remains there as there is not
-enough queueing space at node $2$ to accept them.
-We say customer $e$ is blocked by customer $i$, as he is waiting for customer $i$ to be released.
-Similarly, customer $i$ has finished service at node $2$, but remains there as there is not enough queueing space at node $1$, customer $i$ is blocked by customer $e$.
+Customer occupying server $A_1$ has finished service at node $A$, but remains there as there is not
+enough queueing space at node $B$ to accept them.
+We say the customer at server $A_1$ is blocked by the customer at server $B_1$, as he is waiting for that customer to be released.
+Similarly, the customer occupying server $B_1$ has finished service at node $B$, but remains there as there is not enough queueing space at node $A$, and so the customer at server $B_1$ is blocked by the customer at server $A_1$.
 
 When there are multiple servers, individuals become blocked by all customers in
-service. at the destination service station.
-Figure~\ref{fig:inout_deadlock_in} shows two nodes in deadlock, customer $i$ is blocked by both $d$ and $e$, who are both blocked by customer $i$.
-However in \ref{fig:inout_deadlock_out}, customer $i$ is blocked by both $d$ and $e$, and customer $d$ isn't blocked, and so there is no deadlock.
+service at the destination service station.
+Figure~\ref{fig:inout_deadlock_in} shows two nodes in deadlock, the customer occupying server $A_1$ is blocked by customers at both $B_1$ and $B_2$, who are both blocked by the customer at $A_1$.
+However in \ref{fig:inout_deadlock_out}, customer at $A_1$ is blocked by customers at both $B_1$ and $B_2$, but the customer at $B_2$ isn't blocked, and so there is no deadlock.
 
 \begin{figure}[H]
-  \includestandalone[width=\textwidth]{images/2nodesindeadlock}
+  \begin{center}
+  \includestandalone[width=0.5\textwidth]{images/2nodesindeadlock}
   \caption{Two nodes in deadlock.}
   \label{fig:2in_deadlock}
+  \end{center}
 \end{figure}
 
 \begin{figure}[H]
-\begin{subfigure}[b]{\textwidth}
-  \includestandalone[width=\textwidth]{images/2nodesindeadlockmulti}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/2nodesindeadlockmulti}
   \caption{Two nodes in deadlock.}
   \label{fig:inout_deadlock_in}
 \end{subfigure}
-\begin{subfigure}[b]{\textwidth}
-  \includestandalone[width=\textwidth]{images/2nodesnotdeadlocked}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/2nodesnotdeadlocked}
   \caption{Two nodes not deadlocked}
   \label{fig:inout_deadlock_out}
 \end{subfigure}
@@ -687,20 +689,11 @@ However in \ref{fig:inout_deadlock_out}, customer $i$ is blocked by both $d$ and
 
 Note that the whole queueing network need not be deadlocked, only a part of it.
 If one section of the network is in deadlock, then the system is deadlocked, even though customers may still be able to have services and transitions in other areas of the network.
-An example is shown in Figure~\ref{fig:somenodes_notdeadlocked}.
-Here nodes $1$ and $2$ are in deadlock, so individuals $e$ and $h$ cannot transition to the next node as they are blocking one another.
-Individual $k$ on the other hand is free to move to its next destination.
-This idea is expanded on in the next section.
-
-\begin{figure}[H]
-  \includestandalone[width=\textwidth]{images/4nodes2indeadlock}
-  \caption{A deadlock situation where not all nodes are deadlocked.}
-  \label{fig:somenodes_notdeadlocked}
-\end{figure}
-
+An example is shown in Figure~\ref{fig:trans}.
+This idea is expanded on in the next subsection.
 
 \subsection{Types of Deadlock}
-The previous section introduced the idea that parts of a queueing network can be in a deadlocked state, although other parts will continue to flow.
+The previous subsection introduced the idea that parts of a queueing network can be in a deadlocked state, although other parts will continue to flow.
 The different configurations of which nodes experience deadlock can be thought
 of as different types of deadlock.
 Each different type of deadlocked state can be denoted $(i_1, i_2, i_3...)$ where $i_k = -1$ if node $k$ node is participating in that deadlocked state.
