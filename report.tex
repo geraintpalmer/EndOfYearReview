@@ -236,7 +236,393 @@ Comprehensive overviews are given in \cite{suttonbarto98} and \cite{szepesvari10
 
 
 \section{Analytical Models of Open Queueing Networks}
-NEED TO WRITE THIS. GIVE A WORKED EXAMPLE OF JACKSON NETWORK, DIFFERENCE EQUATIONS FOR BLOCKING, MARKOV CHAIN FOR BLOCKING, TAKAHASHI APPORXIMATION THING.
+\subsection {Queueing Networks}
+Queueing networks are a set of service centers, with or without a queueing space before them.
+They are connected by possible routes such that when a customer finishes service at one service centre he or she joins the queue of another service centre according to a probability distribution.
+Throughout this report queueing networks will be represented as in Figure~\ref{fig:QnetNotation} unless stated otherwise.
+
+\begin{figure}[H]
+    \includestandalone[width=\textwidth]{images/Qnetnotation}
+    \caption{A queueing network}
+    \label{fig:QnetNotation}
+\end{figure}
+
+Here the service centres are shown as circles and all possible routings as shown as arrows.
+The external arrival rate to node $i$ is denoted by $\Lambda_i$, there is $c_i$ servers serving at a rate of $\mu_i$ at node $i$.
+Routing probabilities are described by the routing matrix $R$, with elements $r_{ij}$ denoting the probability of transitioning from node $i$ to node $j$ once service is complete.
+The probability of leaving the system after service at node $i$ is given by $1 - \sum_j r_{ij}$.
+The routing matrix for the network in Figure~\ref{fig:QnetNotation} is given by
+
+\begin{equation*}
+R = \left(
+\begin{matrix}
+  0 & r_{12} & 0 \\
+  0 & 0 & r_{23} \\
+  r_{31} & r_{32} & r_{33}
+ \end{matrix}
+ \right)
+\end{equation*}
+
+Nodes 1 and 3 have open queues, denoted with open rectangles, and have infinite queueing capacity.
+Node 2 is restricted, and its queue can only accomodate $n_2$ waiting customers.
+If a customer finishes service and wants to transition to node 2, but node 2 has a full queue, then that customer remains at its current node until space becomes available at node 2.
+While remaining at its node, that customer blocks waiting customers from entering service until he or she has left that node.
+
+As well as being classified as either restricted (containing at least one node with limited capacity) and unrestricted, queueing networks are classified as either open or closed.
+In an open queueing network customers can arrive externally to the network, and can leave the network once service is finished.
+In closed queueing networks, there is a fixed amount of customers in the network, no customers can enter the network from the outside, and no customers can leave the network.
+
+This report will only look at open queueing networks.
+
+
+\subsection{Open Unrestricted Queueing Networks}
+In order to solve open unrestricted queueing networks, we make use of the following theorem due to \cite{burke56} and \cite{reich57}.
+Known as Burke's Theorem, it states that the departure rate of customers from a service station is equal to the arrival rate.
+
+Therefore, each node's effective arrival rate can be calculated by solving the following traffic equations
+
+\begin{equation}
+    \lambda_i = \Lambda_i + \sum_j r_{ji} \quad \forall i
+\end{equation}
+
+We can now make use of Jackson's Theorem \cite{jackson57} in order to use the decomposition method to solve the queueing network.
+It states that, given a network with $M$ service stations, each service station can be solved independently of the others.
+That is, if $P(k_1, k_2, \dotsc, k_M)$ is the probabiliy of there being $k_1$ customers at node 1 and $k_2$ customers at node 2, etc., and $P_i(k_i)$ is the probability of there being $k_i$ customers at node $i$, then the following is true
+
+\begin{equation}
+    P(k_1, k_2, \dotsc, k_M) = \prod_{i=1}^M P_i(k_i)
+\end{equation}
+
+From this solving the networks is simply a case of decomposing the network into individual nodes.
+Performance measures such as expected number of customers in the system and expected time spent in the system can easily be found in the same manner:
+
+\begin{equation}
+    L = \sum_i L_i
+\end{equation}
+
+\begin{equation}
+    W = \sum_i {L_i \over \lambda_i}
+\end{equation}
+
+\subsubsection{Example of Solving a Jackson Network}
+Consider the queueing network shown in Figure~\ref{fig:jacksonnet}.
+
+\begin{figure}[H]
+    \includestandalone[width=\textwidth]{images/exampleQnet}
+    \caption{An open queueing network.}
+    \label{fig:jacksonnet}
+\end{figure}
+
+The traffic equations yield the following set of simultaneous equations:
+
+\begin{equation*}
+\lambda_1 = 10 + 0.1 \lambda_2
+\end{equation*}
+\begin{equation*}
+\lambda_2 = 12 + 0.2 \lambda_3
+\end{equation*}
+\begin{equation*}
+\lambda_3 = 0.2 \lambda_1 + 0.4 \lambda_2
+\end{equation*}
+
+Which when solved give the following effective arrival rates to each node, $\lambda_1 \approx 11.354$, $\lambda_2 \approx 13.537$, $\lambda_3 \approx 7.686$.
+Then, using the following equations from standard ueueing theory, each node can be analysed independently.
+
+\begin{equation}
+P(0) = \left[\sum_{j=0}^{c-1}{\left({^\lambda / _\mu}\right)^j\over j!}+{\left({^\lambda / _\mu}\right)^c\over c!\left(1-{\left(^\lambda / _{\mu c}\right)} \right)}\right]^{-1}
+\end{equation}
+
+\begin{equation}
+P(j)=\left\{\;\begin{array}{@{}c@{}}
+{\left({^\lambda / _\mu}\right)^j\over j!}P(0)\text{ for }j<c\\[2mm]
+{\left({^\lambda / _\mu}\right)^j\over c!c^{j-c}}P(0)\text{ for }i\geq c\\[2mm]
+\end{array}
+\right.
+\end{equation}
+
+Now, if we wish to find $P(3, 1, 1)$, the probability that node 1 has 3 customers, node 2 has 1 customer and node 3 has 1 customer, by Jackson's Theorem we can look at each node seperately.
+The above equations yield $P_1(3) \approx 0.10541$, $P_2(1) \approx 0.22172$ ane $P_3(1) \approx 0.29827$.
+And so:
+
+\begin{equation*}
+    \begin{split}
+    P( k_1 = 3, k_2 = 1, k_3 = 1 ) & = P(k_1 = 3) P(k_2 = 1) P(k_3 = 1) \\
+    & \approx 0.10541 \times 0.22172 \times 0.29827 \\
+    & \approx 0.00697
+    \end{split}
+\end{equation*}
+
+Similarly, we can find the expected number of customers in the system. Standard queueing theory give the following formula:
+
+\begin{equation}
+    L = \left[ { \left( ^\lambda / _\mu \right)^c \mu \over (c - 1)! (c \mu - \lambda)^2 } \right] P(0) + \frac{\lambda}{\mu}
+\end{equation}
+
+For each node we get $L_1 = 0.96453$, $L_2 = 1.36482$ and $L_3 = 0.64097$.
+From which we get:
+
+\begin{equation*}
+    \begin{split}
+    L & = L_1 + L_2 + L_3\\
+    & \approx 0.96453 + 1.36482 + 0.64097 \\
+    & \approx 2.97034
+    \end{split}
+\end{equation*}
+
+
+\subsection{Restricted Queueing Networks}
+Restricted queueing networks are those where at least one node has limited capacity and blocking rules apply.
+These networks are not as simple to solve as open unrestricted queueing networks, as Burke's Theorem no longer applies.
+These become even more difficult to solve when there exist feedback loops in the networks.
+We will concentrate on restricted networks with feedforward flows only.
+
+\subsubsection{Solving using Difference Equations}
+This method was used in \cite{baber08} to investigate the behaviour of queues with blocking.
+In this method equations are derived for every state of the queueing network, and so networks with very many states become very difficult to solve.
+
+In this example, a network with only two single-server service centres, and no queueing space, is solved.
+This queueing network is shown in Figure~\ref{fig:2nodesNoQs}.
+
+\begin{figure}[H]
+    \includestandalone[width=\textwidth]{images/2nodenoqueues}
+    \caption{A two-node queueing network with no queueing capacities.}
+    \label{fig:2nodesNoQs}
+\end{figure}
+
+Define $P_{i,j}(t)$ as there being $i$ customers in the first node, $j$ customers in the second node at time $t$.
+Define $P_{1b,1}(t)$ as there being 1 blocked customer in the first node, 1 customer in the second node at time $t$.
+Then we get the following difference equations:
+
+\begin{equation*}
+    P_{0,0}(t+\delta t) = (1 - \Lambda \delta t)P_{0,0}(t) + (1 - \Lambda \delta t)\mu_2 \delta t P_{0,1}(t)
+\end{equation*}
+\begin{equation*}
+    P_{1,0}(t+\delta t) = \Lambda \delta t P_{0,0}(t) + (1 - \mu_1 \delta t) P_{1,0}(t) + (1 - \mu_1 \delta t)\mu_2 \delta t P_{1,1}(t)
+\end{equation*}
+\begin{equation*}
+    P_{0,1}(t+\delta t) = (1 - \Lambda \delta t)(1 - \mu_2 \delta t)P_{0,1}(t) + \mu_1 \delta t P_{1,0}(t) + \mu_2 \delta t P_{1b,1}(t)
+\end{equation*}
+\begin{equation*}
+    P_{1,1}(t+\delta t) = (1 - \mu_1 \delta t)(1 - \mu_2 \delta t)P_{1,1}(t) + \Lambda \delta t (1 - \mu_2 \delta t) P_{0,1}(t)
+\end{equation*}
+\begin{equation*}
+    P_{1b,1}(t+\delta t) = (1 - \mu_2 \delta t)P_{1b,1}(t) + \mu_1 \delta t (1 - \mu_2 \delta t)P_{1,1}(t)
+\end{equation*}
+
+Differentiating leaves:
+
+\begin{equation*}
+    \frac{d P_{0,0}(t)}{dt} = - \Lambda P_{0,0}(t) + \mu_2 P_{0,1}(t)
+\end{equation*}
+\begin{equation*}
+    \frac{d P_{1,0}(t)}{dt} = \Lambda P_{0,0}(t) - \mu_1 P_{1,0}(t) + \mu_2 P_{1,1}(t)
+\end{equation*}
+\begin{equation*}
+    \frac{d P_{0,1}(t)}{dt} = - \mu_2 P_{0,1}(t) - \Lambda P_{0,1}(t) + \mu_1 P_{1,0}(t) + \mu_2 P_{1b,1}(t)
+\end{equation*}
+\begin{equation*}
+    \frac{d P_{1,1}(t)}{dt} = - \mu_2 P_{1,1}(t) - \mu_1 P_{1,1}(t) + \Lambda P_{0,1}(t)
+\end{equation*}
+\begin{equation*}
+    \frac{d P_{1b,1}(t)}{dt} = - \mu_2 P_{1b,1}(t) + \mu_1 P_{1,1}(t)
+\end{equation*}
+
+We are interested in stead-state probabilities. Stedy states occur when the differentials are set to 0:
+
+\begin{equation*}
+    \Lambda P_{0,0} = \mu_2 P_{0,1}
+\end{equation*}
+\begin{equation*}
+    \mu_1 P_{1,0} = \Lambda P_{0,0} + \mu_2 P_{1,1}
+\end{equation*}
+\begin{equation*}
+    (\Lambda + \mu_2) P_{0,1} = \mu_1 P_{1,0} + \mu_2 P_{1b,1}
+\end{equation*}
+\begin{equation*}
+    (\mu_1 + \mu_2) P_{1,1} = \Lambda P_{0,1}
+\end{equation*}
+\begin{equation*}
+    \mu_2 P_{1b,1} = \mu_1 P_{1,1}
+\end{equation*}
+
+We also have that all probabilities must sum to 1:
+
+\begin{equation*}
+    \sum_i \sum_j P_{i,j} = 1
+\end{equation*}
+
+This set of equations can be solved to give the following expressions for the desired probabilities:
+
+\begin{equation*}
+    P_{0,0} = {{\mu_1\mu_2^2(\mu_1+\mu_2)}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+\end{equation*}
+\begin{equation*}
+    P_{0,1} = {{\Lambda\mu_1\mu_2(\mu_1+\mu_2)}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+\end{equation*}
+\begin{equation*}
+    P_{1,1} = {{\Lambda^2\mu_1\mu_2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+\end{equation*}
+\begin{equation*}
+    P_{1b,1} = {{\Lambda^2\mu_1^2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+\end{equation*}
+\begin{equation*}
+    P_{1,0} = {{\Lambda(\Lambda+\mu_1+\mu_2)\mu_2^2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+\end{equation*}
+
+Substituting in the problem's values given in Figure~\ref{fig:2nodesNoQs}, $\Lambda = 14$, $\mu_1 = 12$ and $\mu_2 = 10$, the probabilities become:
+
+\begin{equation*}
+    P_{0,0} \approx 0.15951
+\end{equation*}
+\begin{equation*}
+    P_{0,1} \approx 0.22332
+\end{equation*}
+\begin{equation*}
+    P_{1,1} \approx 0.14211
+\end{equation*}
+\begin{equation*}
+    P_{1b,1} \approx 0.17053
+\end{equation*}
+\begin{equation*}
+    P_{1,0} \approx 0.30452
+\end{equation*}
+
+
+
+\subsubsection{Solving using Markov Chains}
+Queueing networks with larger state-spaces can be solved numerically with the aid of computers.
+The computations of the transition matrices and matrix inversions are all done using Python.
+The queueing network solved using the difference equations method can be generalised to include finite queues before each server.
+This network is shown in Figure~\ref{fig:2nodesQs}.
+
+\begin{figure}[H]
+    \includestandalone[width=\textwidth]{images/2nodesQueues}
+    \caption{A two-node queueing network with finitie queues.}
+    \label{fig:2nodesQs}
+\end{figure}
+
+Substituting in $n_1 = 0$, $n_2 = 0$, $r_{12} = 1$ and $\Lambda_2 = 0$ the problem is equivalent to that solved using difference equations, and identical numerical solutions are found.
+
+The state space for this network is defined as follows:
+
+\begin{equation*}
+    S = \{(i,j)\in\mathbb{N}^{(n_1+1\times n_2+2)}| 0 \leq i + j \leq n_1 + n_2 + 2\}
+\end{equation*}
+
+Where $i$ denotes the number of customers waiting or in service at node 1, and $j$ denotes the number of customers waiting or in service at node 2 plus the number of customers at node 1 blocked from entering node 2.
+The transition rates $q_{(i_1, j_1),(i_2, j_2)}$, the rate at which the system transitions from state $(i_1, j_2)$ to state $(i_2, j_2)$, are defined as follows:
+
+\begin{equation}
+  q_{(i_1, j_1),(i_2, j_2)} = \left\{
+  \begin{matrix*}[ r ]
+    \left. \begin{matrix*}[ r ]
+      \Lambda_1 & \text{if } i_1 \leq n_1 \\
+      0 & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = (1, 0) \\
+    \left. \begin{matrix*}[ r ]
+      \Lambda_2 & \text{if } j_1 \leq n_2 \\
+      0 & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = (0, 1) \\
+    \left. \begin{matrix*}[ r ]
+      (1 - r_{12})\mu_1 & \text{if } j_1 \leq n_1 + 1 \\
+      0 & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = (-1, 0) \\
+    \mu_2 & \text{if } \delta = (0, -1) \\
+    \left. \begin{matrix*}[ r ]
+      r_{12}\mu_1 & \text{if } j_1 \leq n_2 \\
+      0 & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = (-1, 1) \\
+    0 & \text{otherwise}
+  \end{matrix*} \right.
+\end{equation}
+
+Where $\delta = (i_2-i_1, j_2-j_1)$.
+
+The transition matrix is constructed numerically using Python, discretised, and then solved by finding the eigenvectors corresponding to the eigenvalue 1.
+
+This method becomes more difficult when some infinite queues are allowed, as the state-space becomes infinite.
+Truncating the state-space is one way of overcoming this.
+
+The representation of the states will have to be altered to accomodate more nodes, more routing possibilities and multi-server queues.
+
+
+
+\subsubsection{Solving Using an Approximation}
+An approximation method was developed by \cite{takahashi80}, and developed and implemented in \cite{koizumietal05} for queueing networks with blocking with no intermediate queues.
+This approximation makes use of the effective service time, illustarted in Figure~\ref{fig:effectiveservicetime}.
+The effective service time at node $i$, denoted $^1 / _{\tilde{\mu}_i}$, is the time spent from entering service at node $i$ to departing that node.
+It includes the time spent blocked at that node before being able to move on to another node.
+
+\begin{figure}[H]
+    \includestandalone[width=\textwidth]{images/effsertime}
+    \caption{Effective service time.}
+    \label{fig:effectiveservicetime}
+\end{figure}
+
+All service stations directly upstream from a service station that has limited capacity will have an effective service rate.
+The effective service rate is calculated as follows:
+
+\begin{equation}
+    \frac{1}{\tilde{\mu}_i} = \left( 1 - \sum_j r_{ij} \right) \left( \frac{1}{\mu_i} \right) + \sum_j r_{ij} \left( \frac{1}{\mu_i} + W_j \right)
+\end{equation}
+
+The number of customers at each node, can then be solved recursively, beginning at the most downstream nodes and working upstream, using the following equations:
+
+\begin{equation} \label{eq:L}
+    L_i = \left[ \sum_{n=0}^{c_i-1} {\omega_i^n \over n!} + {\omega_i^{c_i} \over (1 - \rho_i)c_i! } \right]^{-1} \frac{\rho_i \omega_i^{c_i}}{(1-\rho_i)^2 c_i!}
+\end{equation}
+
+\begin{equation}
+    W_i = {L_i \over \lambda_i}
+\end{equation}
+
+where $\omega_i = \frac{\lambda_i}{\mu_i}$, $\rho_i = \frac{\omega_i}{c_i}$.
+The service rate $\mu_i$ should be replaced with the effective service rate $\tilde{\mu}_i$ where appropriate, and effective arrival rates are computed by solving the traffic equations as before.
+
+As an example, we will approximate the expected number of customers, and expected wait, at each node in the queueing network shown in Figure~\ref{fig:approxnet}.
+
+\begin{figure}[H]
+    \includestandalone[width=\textwidth]{images/approxnet}
+    \caption{A two node queueing network with no intermediate queues.}
+    \label{fig:approxnet}
+\end{figure}
+
+First, we solve the traffic equations in order to obtain the effective arrival rates.
+
+\begin{equation*}
+    \lambda_1 = \Lambda_1
+\end{equation*}
+\begin{equation*}
+    \lambda_2 = \Lambda_2 + r_{12} \lambda_2
+\end{equation*}
+
+Yielding $\lambda_1 = 10$ and $\lambda_2 = 9$.
+
+We begin at node 2, as it is furthest downstream, it has no immediate downstream nodes.
+Therefore its effective service rate is the same as its service rate.
+By equation \eqref{eq:L} we obtain $L_2 \approx 0.0061643$, and by Little's Law we get $W_2 \approx 0.0006849$.
+
+We now have all we require to find the effective service rate of node 1.
+
+\begin{equation*}
+    \begin{split}
+    \frac{1}{\tilde{\mu}_1} & = \left( 1 - \sum_j r_{ij} \right) \left( \frac{1}{\mu_i} \right) + \sum_j r_{ij} \left( \frac{1}{\mu_i} + W_j \right) \\
+    & \approx \left( 0.6 \times \frac{1}{12} \right) + \left( 0.4 \times \left( \frac{1}{12} + 0.00061643 \right) \right) \\
+    & \approx 0.0836073
+    \end{split}
+\end{equation*}
+
+Giving $\tilde{\mu}_1 \approx 11.9606772$.
+Whence we get $L_1 \approx 0.0224831$ and $W_1 \approx 0.0022483$.
+
+
+\subsubsection{Simulation}
+The methods described in the report can only be applied to restricted networks with downstream flows, that is no networks with cycles.
+This is due to the breakdown of Markovian arrivals and deadlock possibilities.
+In order to investigate networks with these features computer simulation will have to be used.
+
+A simulation framework has been developed in Python that handles restricted and unrestricted open queueing networks of any architecture with multiple classes of patients and a variety of service distributions.
+
 
 
 \section{Deadlocking Properties of Open Restircted Queueing Networks}

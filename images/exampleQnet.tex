@@ -1,0 +1,79 @@
+\documentclass{standalone}
+% \documentclass{article}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+  % Queue A
+  \draw (0, 0) -- (8, 0);
+  \draw (8, 0) -- (8, 3);
+  \draw (0, 3) -- (8, 3);
+  \draw (4, 0) -- (4, 3);
+  \draw (5, 0) -- (5, 3);
+  \draw (6, 0) -- (6, 3);
+  \draw (7, 0) -- (7, 3);
+
+
+  % Service center a
+  \draw (10, 1.5) circle (1.5);
+
+  % Queue B
+  \draw (0, 6) -- (8, 6);
+  \draw (8, 6) -- (8, 9);
+  \draw (0, 9) -- (8, 9);
+  \draw (4, 6) -- (4, 9);
+  \draw (5, 6) -- (5, 9);
+  \draw (6, 6) -- (6, 9);
+  \draw (7, 6) -- (7, 9);
+
+
+  % Service center B
+  \draw (10, 7.5) circle (1.5);
+
+
+
+  % Queue C
+  \draw (15, 3) -- (23, 3);
+  \draw (23, 3) -- (23, 6);
+  \draw (15, 6) -- (23, 6);
+  \draw (19, 3) -- (19, 6);
+  \draw (20, 3) -- (20, 6);
+  \draw (21, 3) -- (21, 6);
+  \draw (22, 3) -- (22, 6);
+
+
+  % Service center C
+  \draw (25, 4.5) circle (1.5);
+
+
+  % In and out routes
+  \draw[thick, -triangle 90] (-5, 1.5) -- (0.5, 1.5);
+  \draw[thick, -triangle 90] (-5, 7.5) -- (0.5, 7.5);
+  \draw[thick, -triangle 90] (26.5, 4.5) -- (30.5, 4.5);
+  \draw[thick, -triangle 90] (11.5, 1.5) -- (30.5, 1.5);
+
+  % % Routing between nodes
+  \draw[thick, -triangle 90] (11.5, 7.5) -- (13.5, 7.5) -- (13.5, 4.5);
+  \draw[thick, -triangle 90] (11.5, 1.5) -- (13.5, 1.5) -- (13.5, 4.5);
+  \draw[thick, -triangle 90] (13.5, 4.5) -- (15.5, 4.5);
+  \draw[thick, -triangle 90] (11.5, 7.5) -- (12.5, 7.5) -- (12.5, 4.5) -- (-2, 4.5) -- (-2, 1.5);
+  \draw[thick, -triangle 90] (28, 4.5) -- (28, 10) -- (-2, 10) -- (-2, 7.5);
+
+  \node at (-6.2, 1.5) {\huge $\Lambda_1 = 10$};
+  \node at (-6.2, 7.5) {\huge $\Lambda_2 = 12$};
+  \node at (10, 2) {\huge $c_1 = 1$};
+  \node at (10, 1) {\huge $\mu_1 = 15$};
+  \node at (10, 8) {\huge $c_2 = 3$};
+  \node at (10, 7) {\huge $\mu_2 = 10$};
+  \node at (25, 5) {\huge $c_3 = 3$};
+  \node at (25, 4) {\huge $\mu_3 = 12$};
+  \node at (15, 2.3) {\huge $r_{13} = 0.2$};
+  \node at (15, 6.7) {\huge $r_{23} = 0.4$};
+  \node at (26.5, 7.5) {\huge $r_{32} = 0.2$};
+  \node at (5, 5) {\huge $r_{21} = 0.1$};
+
+\end{tikzpicture}
+
+\end{document}

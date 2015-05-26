@@ -1,0 +1,35 @@
+\documentclass{standalone}
+% \documentclass{article}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  % Service center a
+  \draw (6.5, 1.5) circle (1.5);
+
+  % Service center B
+  \draw (14.5, 1.5) circle (1.5);
+
+  % Routes
+  \draw[thick, -triangle 90] (0, 1.5) -- (5, 1.5);
+  \draw[thick, -triangle 90] (8, 1.5) -- (13, 1.5);
+  \draw[thick, -triangle 90] (16, 1.5) -- (21, 1.5);
+
+  \draw (8, 1.4) edge[out=0,in=135,-triangle 90,thick] (10.5, 0.2);
+  \draw (10.5, 2.8) edge[out=-45,in=180,-triangle 90,thick] (13, 1.6);
+
+
+  \node at (-1.5, 1.5) {\LARGE $\Lambda_1 = 10$};
+  \node at (10, 3.2) {\LARGE $\Lambda_2 = 5$};
+  \node at (6.5, 1.2) {\LARGE $\mu_1 = 12$};
+  \node at (14.5, 1.2) {\LARGE $\mu_2 = 15$};
+  \node at (6.5, 1.8) {\LARGE $c_1 = 3$};
+  \node at (14.5, 1.8) {\LARGE $c_2 = 3$};
+  \node at (9.5, 2) {\LARGE $r_{12} = 0.4$};
+
+\end{tikzpicture}
+
+\end{document}

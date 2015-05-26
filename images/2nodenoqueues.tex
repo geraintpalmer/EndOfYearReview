@@ -1,0 +1,27 @@
+\documentclass{standalone}
+% \documentclass{article}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  % Service center a
+  \draw (6.5, 1.5) circle (1.5);
+
+  % Service center B
+  \draw (14.5, 1.5) circle (1.5);
+
+  % Routes
+  \draw[thick, -triangle 90] (0, 1.5) -- (5, 1.5);
+  \draw[thick, -triangle 90] (8, 1.5) -- (13, 1.5);
+  \draw[thick, -triangle 90] (16, 1.5) -- (21, 1.5);
+
+  \node at (-1.5, 1.5) {\huge $\Lambda = 14$};
+  \node at (6.5, 1.5) {\huge $\mu_1 = 12$};
+  \node at (14.5, 1.5) {\huge $\mu_2 = 10$};
+
+\end{tikzpicture}
+
+\end{document}
