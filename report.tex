@@ -337,9 +337,14 @@ Comprehensive overviews are given in \cite{suttonbarto98} and \cite{szepesvari10
 
 \section{Analytical Models of Open Queueing Networks}
 \subsection {Queueing Networks}
+% What is this section for? You have already talks about Queueing networks\dots
+% If you are going to go in to more detail about it you need to signpost that
+% earlier. Clearly point out what each section is from the start.
+
 Queueing networks are a set of service centers, with or without a queueing space before them.
 They are connected by possible routes such that when a customer finishes service at one service centre he or she joins the queue of another service centre according to a probability distribution.
 Throughout this report queueing networks will be represented as in Figure~\ref{fig:QnetNotation} unless stated otherwise.
+% I am not sure I know what the representation is - clarify this.
 
 \begin{figure}[H]
     \includestandalone[width=\textwidth]{images/Qnetnotation}
@@ -347,9 +352,10 @@ Throughout this report queueing networks will be represented as in Figure~\ref{f
     \label{fig:QnetNotation}
 \end{figure}
 
-Here the service centres are shown as circles and all possible routings as shown as arrows.
-The external arrival rate to node $i$ is denoted by $\Lambda_i$, there is $c_i$ servers serving at a rate of $\mu_i$ at node $i$.
+Here the service centres are shown as circles and all possible routings are shown as arrows.
+The external arrival rate to node $i$ is denoted by $\Lambda_i$, there are $c_i$ servers serving at a rate of $\mu_i$ at node $i$.
 Routing probabilities are described by the routing matrix $R$, with elements $r_{ij}$ denoting the probability of transitioning from node $i$ to node $j$ once service is complete.
+% If the matrix is R then it's entries are R_ij (capital).
 The probability of leaving the system after service at node $i$ is given by $1 - \sum_j r_{ij}$.
 The routing matrix for the network in Figure~\ref{fig:QnetNotation} is given by
 
@@ -364,9 +370,10 @@ R = \left(
 \end{equation*}
 
 Nodes 1 and 3 have open queues, denoted with open rectangles, and have infinite queueing capacity.
-Node 2 is restricted, and its queue can only accomodate $n_2$ waiting customers.
+Node 2 is restricted, and its queue can only accommodate $n_2$ waiting customers.
 If a customer finishes service and wants to transition to node 2, but node 2 has a full queue, then that customer remains at its current node until space becomes available at node 2.
-While remaining at its node, that customer blocks waiting customers from entering service until he or she has left that node.
+While remaining at its node, that customer blocks waiting customers from
+entering service until they have left that node.
 
 As well as being classified as either restricted (containing at least one node with limited capacity) and unrestricted, queueing networks are classified as either open or closed.
 In an open queueing network customers can arrive externally to the network, and can leave the network once service is finished.
@@ -374,8 +381,10 @@ In closed queueing networks, there is a fixed amount of customers in the network
 
 This report will only look at open queueing networks.
 
+% Pointer
 
 \subsection{Open Unrestricted Queueing Networks}
+
 In order to solve open unrestricted queueing networks, we make use of the following theorem due to \cite{burke56} and \cite{reich57}.
 Known as Burke's Theorem, it states that the departure rate of customers from a service station is equal to the arrival rate.
 
