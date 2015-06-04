@@ -94,15 +94,26 @@ Optimal analytical approaches will be investigated as well as agent based
 models. One particular implementation that will be used is
 \textbf{reinforcement learning}.
 
-Reinforcement learning is a form of machine learning in which an agent learns through simulation, by completing actions and receiving numerical rewards or punishments.
+Reinforcement learning is a machine learning technique in which an agent learns
+through exploration of their environment, by completing actions and subsequently receiving rewards or punishments.
 Overviews are given in \cite{suttonbarto98} and \cite{szepesvari10}.
-The q-learning algorithm will be used to find the optimal action to take given a specific state.
+The \(q\)-learning algorithm will be used to find the optimal action to take given a specific state.
 
-In order to implement this for the queueing network simulation model, the nodes or service centres will become the agents, the state will be the number of patients at that node, and the reward will be some function of expected wait.
-It will be interesting to see the effect of social vs selfish rewards (that is, does the node recieve rewards according to the system's state or just its own state), and the difference between nodes observing the whole system's state and only observing its own state.
+In order to implement this for the queueing network simulation model, the nodes
+or service centres will become the agents, the state will be the number of
+patients at that node, and the reward will be some function of expected wait. % Put this list in a bullet point list
+It will be interesting to see the effect of social vs selfish rewards (that is,
+does the node receive rewards according to the system's state or just its own
+state), and the difference between nodes observing the whole system's state and
+only observing its own state. % This is not a well written sentence.
 
-An extension of the above problem could be finding the optimal routing of patients when the agents are blind to their state, that is when we do not know, or do not care what state the system is in.
-Some results from game theory, and techniques such as genetic algorithms and linear programming can be explored.
+An extension of the above problem could be finding the optimal routing of
+patients when the agents are blind to their state, that is when they are not
+aware of the system state.
+Some results from game theory, and techniques such as genetic algorithms and
+linear programming will be explored.
+
+% Include a pointer.
 
 \subsection{Workforce Planning}
 The performance measures from each of the scenarios explored will be used to compare the workforce needs and skill mix required to care for frail and elderly patients across the ABUHB.
