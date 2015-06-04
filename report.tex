@@ -55,11 +55,12 @@ An understanding of the situation could alleviate this pressure.
 % Perhaps here include a pointer for the next subsection? (Always nice to have a
 % sentence)
 
-\subsection{Patient Flows}
-Queueing theory, and in particular queueing networks are great techniques to model the stochastic flow of customers around a system of service nodes.
+\resultssubsection{Patient Flows}
+
+Queueing theory, and in particular queueing networks are techniques used to model the stochastic flow of customers around a system of service nodes.
 Note that throughout this report the terms node, service centre, service node and service station will be used interchangeably.
 
-These concepts have been successfully adapted to healthcare systems, both in detailed individual level systems, e.g. \cite{albinetal90}, \cite{creemerslambrecht07} and in examples with corser granularity, for example \cite{koizumietal05}.
+These concepts have been successfully adapted to healthcare systems, both in detailed individual level systems, e.g. \cite{albinetal90}, \cite{creemerslambrecht07} and in examples with coarser granularity, for example \cite{koizumietal05}.
 
 An example of the sort of queueing network and patient flows that will be modelled is shown in Figure~\ref{fig:healthsystem}.
 
@@ -71,14 +72,20 @@ An example of the sort of queueing network and patient flows that will be modell
 
 From exploring data and discussing with professionals at the ABUHB, the general architecture of the health system can be constructed, and patient flows built up.
 This will then be modelled as an open queueing network.
-Using results from the theory of Jackson networks performance measures and steady-state probabilities can be obtained.
+Using results from the theory of Jackson networks \cite{You need a reference
+here}, performance measures and steady-state probabilities can be obtained.
 This model will then be extended to include blocking between nodes so that the model represents reality, in which patients may be unable to progress to their next destination due to lack of capacity.
 Again performance measures and steady-state probabilities will be obtained.
 
-A simulation framework has been written in Python, therefore these results will be compared to results obtained through simulation.
-A user friendly Django application of this simulation will be built which will feature simple parameter inputs and graphical results.
+A simulation framework has been written in Python \cite{http://www.python.org/},
+analytic results will be compared to results obtained through simulation.
+A user friendly Django application of this simulation will be built which will
+feature simple parameter inputs and graphical outputs.
+
+% add pointer
 
 \subsection{Optimal Routing of Patients}
+
 The simulation model will be adapted to become agent-based, and so the agents within the simulation will be able to start leanring about the system itself and finding its own best setup.
 One interesting avenue to explore is the optimal routing of patients throught the system.
 That is, when there is a choice of where to send a patient, what is the optimal action to take?
