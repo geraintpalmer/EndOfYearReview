@@ -169,17 +169,32 @@ I have participated in two hackathon weekends in order to develop my programming
 
 \section{Literature Review}
 
+% Include a little sentence explaining the structure of the literature review.
+
 \subsection{Queueing Networks}
+
 Queueing theory is an important branch of operational research, and the area of queueing networks have shown great promise in modelling computer and telecommunication systems and manufacturing procedures.
-An introduction to some of its results is given in \cite{stewart09}.
+An introduction to some of these results is given in \cite{stewart09}.
 The theory of a single queue has been widely investigated and developed, with Kendall's notation becoming the standard method of describing a queue.
 Kendall's notation describes a queue as $A/B/C/K/m/Z$: $A$ is the arrival process, $B$ the service process, $C$ the number of servers, $K$ the maximum capacity of the queue, $m$ the size of the population served, and $Z$ the service discipline.
-Service disciplines may be varied, however the main ones are First In First Out (FIFO), Last Come First Served (LCFS), First In Random Out (FIRO) and Process Sharing (PS) in which each customer in the queue is served for a proportion of the time until their service time in complete.
-If the last three parameters are left out, then it is assumed that $K = \infty$, $m = \infty$, and $Z =$ FIFO.
+Service disciplines may be varied, however the main ones include:
 
-Queueing networks are simply a number of the service centres with queues before them arranged into a network, with routing probabilities $r_{ij}$ such that a customer finishing service at node $i$ joins a queue at node $j$ with probability $r_{ij}$.
-In \cite{rege90} a history of their development is narrated, and an overview of the different types of networks studied.
-The simplest, open networks are those that have at least one node to which customers arrive from the exterior, and and least one node from which customers leave to the exterior.
+\begin{itemize}
+    \item First In First Out (FIFO),
+    \item Last Come First Served (LCFS),
+    \item First In Random Out (FIRO),
+    \item Process Sharing (PS) in which each customer in the queue is served for a proportion of the time until their service time in complete.
+\end{itemize}
+Note that if the last three parameters are omitted, then it is assumed that $K = \infty$, $m = \infty$, and $Z =$ FIFO.
+
+Queueing networks are simply a number of the service centres with queues before
+them arranged into a network, with routing probabilities $r_{ij}$ such that a
+customer finishing service at node $i$ joins a queue at node $j$ with
+probability $r_{ij}$. % English is broken here.
+In \cite{rege90} a history of the development of queueing networks is given, and an overview of the different types of networks studied.
+
+The simplest, open networks are those that have at least one node to which
+customers arrive from the exterior, and at least one node from which customers leave to the exterior.
 Closed networks are self-contained networks where no customers arrive or depart to or from the exterior, and as a result always contain a constant total of $N$ customers in the system.
 
 A fundamental result for the study of queues in series is shown in both \cite{burke56} and \cite{reich57}, although derived in different ways.
@@ -187,14 +202,18 @@ The result, known as Burke's Theorem, states that the departure rate of an $M/M/
 This result is fundamental to the study of queues arranged in series or networks.
 The latter paper notes that this result holds for more general service disciplines too, including LCFS, FIRO and systems where the number of servers varies with the number of customers present.
 
-The study of a system of queues in series, or routed into a network, was first investigated in \cite{jackson57}.
+The study of a system of queues in series, or routed into a network, is given in \cite{jackson57}.
 This paper investigates the simplest of cases, where all arrivals and service times are Markovian, the service discipline is FIFO, there is room for an infinite length queue between service centres, and the system is open.
-It is shown that in this case, each service centre, or node, behaves as an independent $M/M/c$ queue, which can be analysed as such, later known as the decomposition method.
+It is shown that in this case, each service centre, or node, behaves as an
+independent $M/M/c$ queue, which can be analysed as such.
+This approach is known as the decomposition method.
 
-This model is extended in \cite{kelly75} to include different classes of customer, each with their own routing probabilities around the network and own service times at each node.
+The basic model is extended in \cite{kelly75} to include different classes of customer, each with their own routing probabilities around the network and own service times at each node.
 The analysis concentrates on obtaining steady-state probabilities for the system state defined as $C = (c_1, c_2, ... , c_J)$.
 Here for each node $i$, $c_i$ is a specific ordering of classes of customer in the queue.
 A few extensions to this model are also presented, including changing the service discipline to PS and LCFS, prohibiting service from beginning until there is a certain amount of customers in the queue, and making service effort rely on the current system state rather than the number of people currently in that queue.
+
+% Pointer to next section
 
 \subsection{Other Things in Queueing Theory}
 More complicated customer behaviours have been studied in queueing theory, such as balking, defined as a customer arriving but deciding not to join the queue, therefore getting lost to the system; and reneging, defined as a customer entering a queue but then leaving before entering service.
