@@ -336,6 +336,9 @@ Comprehensive overviews are given in \cite{suttonbarto98} and \cite{szepesvari10
 % Pointer
 
 \section{Analytical Models of Open Queueing Networks}
+
+% Have a little something here.
+
 \subsection {Queueing Networks}
 % What is this section for? You have already talks about Queueing networks\dots
 % If you are going to go in to more detail about it you need to signpost that
@@ -387,22 +390,27 @@ This report will only look at open queueing networks.
 
 In order to solve open unrestricted queueing networks, we make use of the following theorem due to \cite{burke56} and \cite{reich57}.
 Known as Burke's Theorem, it states that the departure rate of customers from a service station is equal to the arrival rate.
+% You have stated this theorem already and you stated it currently differently.
+% (You mentioned servers and not collection of servers).
 
 Therefore, each node's effective arrival rate can be calculated by solving the following traffic equations
 
 \begin{equation}
-    \lambda_i = \Lambda_i + \sum_j r_{ji} \quad \forall i
+    \lambda_i = \Lambda_i + \sum_j r_{ji} \quad \forall\; i
 \end{equation}
 
 We can now make use of Jackson's Theorem \cite{jackson57} in order to use the decomposition method to solve the queueing network.
 It states that, given a network with $M$ service stations, each service station can be solved independently of the others.
-That is, if $P(k_1, k_2, \dotsc, k_M)$ is the probabiliy of there being $k_1$ customers at node 1 and $k_2$ customers at node 2, etc., and $P_i(k_i)$ is the probability of there being $k_i$ customers at node $i$, then the following is true
+% 'solving' a service station does not make sense. I would put this in a proper
+% theorem environment and state it properly
+That is, if $P(k_1, k_2, \dotsc, k_M)$ is the probability of there being $k_1$ customers at node 1 and $k_2$ customers at node 2, etc., and $P_i(k_i)$ is the probability of there being $k_i$ customers at node $i$, then the following is true
 
 \begin{equation}
     P(k_1, k_2, \dotsc, k_M) = \prod_{i=1}^M P_i(k_i)
 \end{equation}
 
 From this solving the networks is simply a case of decomposing the network into individual nodes.
+% Again: a network is not something that is solved. Reword this.
 Performance measures such as expected number of customers in the system and expected time spent in the system can easily be found in the same manner:
 
 \begin{equation}
@@ -413,7 +421,10 @@ Performance measures such as expected number of customers in the system and expe
     W = \sum_i {L_i \over \lambda_i}
 \end{equation}
 
-\subsubsection{Example of Solving a Jackson Network}
+% Pointer
+
+\subsubsection{Example of Solving a Jackson Network} % Networks are not solved
+
 Consider the queueing network shown in Figure~\ref{fig:jacksonnet}.
 
 \begin{figure}[H]
@@ -424,22 +435,19 @@ Consider the queueing network shown in Figure~\ref{fig:jacksonnet}.
 
 The traffic equations yield the following set of simultaneous equations:
 
-\begin{equation*}
-\lambda_1 = 10 + 0.1 \lambda_2
-\end{equation*}
-\begin{equation*}
-\lambda_2 = 12 + 0.2 \lambda_3
-\end{equation*}
-\begin{equation*}
-\lambda_3 = 0.2 \lambda_1 + 0.4 \lambda_2
-\end{equation*}
+\begin{align*}
+\lambda_1 &= 10 + 0.1 \lambda_2\\
+\lambda_2 &= 12 + 0.2 \lambda_3\\
+\lambda_3 &= 0.2 \lambda_1 + 0.4 \lambda_2
+\end{align*}
 
 Which when solved give the following effective arrival rates to each node, $\lambda_1 \approx 11.354$, $\lambda_2 \approx 13.537$, $\lambda_3 \approx 7.686$.
-Then, using the following equations from standard ueueing theory, each node can be analysed independently.
+Then, using the following equations from standard queueing theory, each node can be analysed independently.
 
 \begin{equation}
 P(0) = \left[\sum_{j=0}^{c-1}{\left({^\lambda / _\mu}\right)^j\over j!}+{\left({^\lambda / _\mu}\right)^c\over c!\left(1-{\left(^\lambda / _{\mu c}\right)} \right)}\right]^{-1}
 \end{equation}
+% Have you defined P(0), P(j) etc\dots? I don't remember reading it if so.
 
 \begin{equation}
 P(j)=\left\{\;\begin{array}{@{}c@{}}
@@ -449,7 +457,10 @@ P(j)=\left\{\;\begin{array}{@{}c@{}}
 \right.
 \end{equation}
 
-Now, if we wish to find $P(3, 1, 1)$, the probability that node 1 has 3 customers, node 2 has 1 customer and node 3 has 1 customer, by Jackson's Theorem we can look at each node seperately.
+Now, if we wish to find $P(3, 1, 1)$, the probability that node 1 has 3
+customers, node 2 has 1 customer and node 3 has 1 customer, by Jackson's Theorem
+we can look at each node separately.
+% Same comment as before, have you defined P(3,1,1)?
 The above equations yield $P_1(3) \approx 0.10541$, $P_2(1) \approx 0.22172$ ane $P_3(1) \approx 0.29827$.
 And so:
 
@@ -478,6 +489,7 @@ From which we get:
     \end{split}
 \end{equation*}
 
+% Pointer
 
 \subsection{Restricted Queueing Networks}
 Restricted queueing networks are those where at least one node has limited capacity and blocking rules apply.
