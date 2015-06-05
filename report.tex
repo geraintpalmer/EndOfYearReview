@@ -492,12 +492,21 @@ From which we get:
 % Pointer
 
 \subsection{Restricted Queueing Networks}
+
 Restricted queueing networks are those where at least one node has limited capacity and blocking rules apply.
+% You have said this before, there's no harm in repeating but you need to word
+% this clearly as a repetition and point to where you mentioned it previously
 These networks are not as simple to solve as open unrestricted queueing networks, as Burke's Theorem no longer applies.
 These become even more difficult to solve when there exist feedback loops in the networks.
 We will concentrate on restricted networks with feedforward flows only.
 
 \subsubsection{Solving using Difference Equations}
+% These are actually 'Differential difference' equations and really just
+% end up corresponding to the linear equations you solve for the corresponding
+% markov chain (it's just a markov chain). I don't really like even referring to
+% them but will leave that up to you/Paul.
+% Also, you do not 'solve using the difference equations', you solve the
+% difference equations\dots (but again this whole section is not great\dots)
 This method was used in \cite{baber08} to investigate the behaviour of queues with blocking.
 In this method equations are derived for every state of the queueing network, and so networks with very many states become very difficult to solve.
 
@@ -514,6 +523,7 @@ Define $P_{i,j}(t)$ as there being $i$ customers in the first node, $j$ customer
 Define $P_{1b,1}(t)$ as there being 1 blocked customer in the first node, 1 customer in the second node at time $t$.
 Then we get the following difference equations:
 
+% You need to use the align environment for these equations.
 \begin{equation*}
     P_{0,0}(t+\delta t) = (1 - \Lambda \delta t)P_{0,0}(t) + (1 - \Lambda \delta t)\mu_2 \delta t P_{0,1}(t)
 \end{equation*}
@@ -532,6 +542,7 @@ Then we get the following difference equations:
 
 Differentiating leaves:
 
+% Align env
 \begin{equation*}
     \frac{d P_{0,0}(t)}{dt} = - \Lambda P_{0,0}(t) + \mu_2 P_{0,1}(t)
 \end{equation*}
@@ -548,8 +559,12 @@ Differentiating leaves:
     \frac{d P_{1b,1}(t)}{dt} = - \mu_2 P_{1b,1}(t) + \mu_1 P_{1,1}(t)
 \end{equation*}
 
-We are interested in stead-state probabilities. Stedy states occur when the differentials are set to 0:
+We are interested in stead-state probabilities. Steady states occur when the differentials are set to 0:
+% Again all this just corresponds to the linear equations of the Markov chain.
+% Doing it this way is just long and also potentially 'shows off' that you don't
+% realise that it's just a Markov chain
 
+% Align env
 \begin{equation*}
     \Lambda P_{0,0} = \mu_2 P_{0,1}
 \end{equation*}
@@ -608,11 +623,20 @@ Substituting in the problem's values given in Figure~\ref{fig:2nodesNoQs}, $\Lam
     P_{1,0} \approx 0.30452
 \end{equation*}
 
-
+% All of the above corresponds to writing down \(Q=\dots\) and solving the
+% corresponding matrix equation (as is is a bit clumsy in my opinion).
 
 \subsubsection{Solving using Markov Chains}
-Queueing networks with larger state-spaces can be solved numerically with the aid of computers.
+% This should not really be a separate section, the above is the same as this
+% but just with clumsy notation.
+% Also you do not 'solve using Markov Chains' you 'obtain the steady state
+% probabilities of the Markov chain', the previous section is 'doing this by
+% writing out each equation slowly and not knowing the definition of a Markov
+% chain', this section is 'Using linear algebra'.
+
+Queueing networks with larger state-spaces can be solved numerically.
 The computations of the transition matrices and matrix inversions are all done using Python.
+% Do we care about this?
 The queueing network solved using the difference equations method can be generalised to include finite queues before each server.
 This network is shown in Figure~\ref{fig:2nodesQs}.
 
@@ -659,12 +683,12 @@ The transition rates $q_{(i_1, j_1),(i_2, j_2)}$, the rate at which the system t
 
 Where $\delta = (i_2-i_1, j_2-j_1)$.
 
-The transition matrix is constructed numerically using Python, discretised, and then solved by finding the eigenvectors corresponding to the eigenvalue 1.
+The transition matrix is constructed numerically using Python, discretized, and then solved by finding the eigenvectors corresponding to the eigenvalue 1.
 
 This method becomes more difficult when some infinite queues are allowed, as the state-space becomes infinite.
 Truncating the state-space is one way of overcoming this.
 
-The representation of the states will have to be altered to accomodate more nodes, more routing possibilities and multi-server queues.
+The representation of the states will have to be altered to accommodate more nodes, more routing possibilities and multi-server queues.
 
 
 
