@@ -692,9 +692,14 @@ The representation of the states will have to be altered to accommodate more nod
 
 
 
+
+% pointer
+
 \subsubsection{Solving Using an Approximation}
+% Title should be something like 'An approximate approach'
+
 An approximation method was developed by \cite{takahashi80}, and developed and implemented in \cite{koizumietal05} for queueing networks with blocking with no intermediate queues.
-This approximation makes use of the effective service time, illustarted in Figure~\ref{fig:effectiveservicetime}.
+This approximation makes use of the effective service time, illustrated in Figure~\ref{fig:effectiveservicetime}.
 The effective service time at node $i$, denoted $^1 / _{\tilde{\mu}_i}$, is the time spent from entering service at node $i$ to departing that node.
 It includes the time spent blocked at that node before being able to move on to another node.
 
@@ -752,7 +757,8 @@ We now have all we require to find the effective service rate of node 1.
 \begin{equation*}
     \begin{split}
     \frac{1}{\tilde{\mu}_1} & = \left( 1 - \sum_j r_{ij} \right) \left( \frac{1}{\mu_i} \right) + \sum_j r_{ij} \left( \frac{1}{\mu_i} + W_j \right) \\
-    & \approx \left( 0.6 \times \frac{1}{12} \right) + \left( 0.4 \times \left( \frac{1}{12} + 0.00061643 \right) \right) \\
+    & \approx \left( 0.6 \times \frac{1}{12} \right) + \left( 0.4 \times \left(
+    \frac{1}{12} + 0.00061643 \right) \right) \\ % no need for this line
     & \approx 0.0836073
     \end{split}
 \end{equation*}
