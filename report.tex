@@ -2,6 +2,7 @@
 
 \usepackage{fullpage}
 \usepackage{parskip}
+\usepackage{hyperref}
 \usepackage{setspace}
 \usepackage{mathtools}
 \usepackage{tikz}
@@ -23,7 +24,7 @@
 
 \title{End of Year Progress Monitoring Report}
 \author{Geraint Palmer\\{\small Supervisors: Professor Paul Harper \& Dr. Vincent Knight}}
-\date{}
+\date{\today}
 
 \begin{document}
 \onehalfspacing
@@ -35,27 +36,32 @@
 
 \section{Project Overview \& Plan}
 
-This project is supervised by Professor Paul Harper and Dr Vincent Knight.
+This project is supervised by Professor Paul Harper and Dr Vincent Knight. % No need for this
 The research will investigate the workforce needs required to care for the frail and the elderly within the Aneurin Bevan University Health Board (ABUHB).
 A systems-wide view will be considered to account for the complexity and connectedness of the healthcare system.
-Stochastic aspects will need to be captured, such as those governing the variability in patient pathways and resource consumption.
+Stochastic aspects will need to be captured, such as the variability in patient pathways and resource consumption.
 
-The whole system will be modelled as a queueing network, with nodes representing large departments in order to capture general patient flows.
-The model parameters will be obtained by exploring and analysing data aquired from the SAIL data bank.
-An agent-based simulation model will be created from this model, populated with the obtained data, where further exploritoration can be undertaken.
+The whole system will be modelled as a queueing network, with nodes representing departments in order to capture general patient flows.
+The model parameters will be obtained by exploring and analysing data acquired from the SAIL data bank.
+An agent-based simulation model will be created from this model, populated with
+the obtained data, where further exploration can be undertaken.
 
 Frail and elderly patients are currently a particular priority for many healthcare planners and managers.
-An aging population means and increasing amount of elderly people are accessing  healthcare service.
+An aging population means an increasing amount of elderly people are accessing healthcare service.
 Frail patients tend to have prolonged hospital length of stay partly due to insufficient care at home or in the community.
 Patients who remain in hospitals when they could otherwise have returned home block beds, increasing congestion and pressure on other areas of the healthcare system.
 This becomes a strain on the workforce, both in hospitals and community care teams.
 An understanding of the situation could alleviate this pressure.
 
-\subsection{Patient Flows}
-Queueing theory, and in particular queueing networks are great techniques to model the stochastic flow of customers around a system of service nodes.
+% Perhaps here include a pointer for the next subsection? (Always nice to have a
+% sentence)
+
+\resultssubsection{Patient Flows}
+
+Queueing theory, and in particular queueing networks are techniques used to model the stochastic flow of customers around a system of service nodes.
 Note that throughout this report the terms node, service centre, service node and service station will be used interchangeably.
 
-These concepts have been successfully adapted to healthcare systems, both in detailed individual level systems, e.g. \cite{albinetal90}, \cite{creemerslambrecht07} and in examples with corser granularity, for example \cite{koizumietal05}.
+These concepts have been successfully adapted to healthcare systems, both in detailed individual level systems, e.g. \cite{albinetal90}, \cite{creemerslambrecht07} and in examples with coarser granularity, for example \cite{koizumietal05}.
 
 An example of the sort of queueing network and patient flows that will be modelled is shown in Figure~\ref{fig:healthsystem}.
 
@@ -67,41 +73,67 @@ An example of the sort of queueing network and patient flows that will be modell
 
 From exploring data and discussing with professionals at the ABUHB, the general architecture of the health system can be constructed, and patient flows built up.
 This will then be modelled as an open queueing network.
-Using results from the theory of Jackson networks performance measures and steady-state probabilities can be obtained.
+Using results from the theory of Jackson networks \cite{You need a reference
+here}, performance measures and steady-state probabilities can be obtained.
 This model will then be extended to include blocking between nodes so that the model represents reality, in which patients may be unable to progress to their next destination due to lack of capacity.
 Again performance measures and steady-state probabilities will be obtained.
 
-A simulation framework has been written in Python, therefore these results will be compared to results obtained through simulation.
-A user friendly Django application of this simulation will be built which will feature simple parameter inputs and graphical results.
+A simulation framework has been written in Python \cite{http://www.python.org/},
+analytic results will be compared to results obtained through simulation.
+A user friendly Django application of this simulation will be built which will
+feature simple parameter inputs and graphical outputs.
+
+% add pointer
 
 \subsection{Optimal Routing of Patients}
-The simulation model will be adapted to become agent-based, and so the agents within the simulation will be able to start leanring about the system itself and finding its own best setup.
-One interesting avenue to explore is the optimal routing of patients throught the system.
+
+One interesting avenue to explore is the optimal routing of patients through the system.
 That is, when there is a choice of where to send a patient, what is the optimal action to take?
 This question will be investigated using reinforcement learning algorithms.
 
-Reinforcement learning is a form of machine learning in which an agent learns through simulation, by completing actions and receiving numerical rewards or punishments.
+Optimal analytical approaches will be investigated as well as agent based
+models. One particular implementation that will be used is
+\textbf{reinforcement learning}.
+
+Reinforcement learning is a machine learning technique in which an agent learns
+through exploration of their environment, by completing actions and subsequently receiving rewards or punishments.
 Overviews are given in \cite{suttonbarto98} and \cite{szepesvari10}.
-The q-learning algorithm will be used to find the optimal action to take given a specific state.
+The \(q\)-learning algorithm will be used to find the optimal action to take given a specific state.
 
-In order to implement this for the queueing network simulation model, the nodes or service centres will become the agents, the state will be the number of patients at that node, and the reward will be some function of expected wait.
-It will be interesting to see the effect of social vs selfish rewards (that is, does the node recieve rewards according to the system's state or just its own state), and the difference between nodes observing the whole system's state and only observing its own state.
+In order to implement this for the queueing network simulation model, the nodes
+or service centres will become the agents, the state will be the number of
+patients at that node, and the reward will be some function of expected wait. % Put this list in a bullet point list
+It will be interesting to see the effect of social vs selfish rewards (that is,
+does the node receive rewards according to the system's state or just its own
+state), and the difference between nodes observing the whole system's state and
+only observing its own state. % This is not a well written sentence.
 
-An extension of the above problem could be finding the optimal routing of patients when the agents are blind to their state, that is when we do not know, or do not care what state the system is in.
-Some results from game theory, and techniques such as genetic algorithms and linear programming can be explored.
+An extension of the above problem could be finding the optimal routing of
+patients when the agents are blind to their state, that is when they are not
+aware of the system state.
+Some results from game theory, and techniques such as genetic algorithms and
+linear programming will be explored.
+
+% Include a pointer.
 
 \subsection{Workforce Planning}
-The performance measures from each of the scenarios explored will be used to compare the workforce needs and skill mix required to care for frail and elderly patients across the ABUHB.
-Using methods such as acuity ratios and nurses-per-bed workforce needs can be estimated over time and across seasons.
+
+The performance measures from each of the scenarios explored will be used to
+compare the workforce needs and skill mix required to care for frail and elderly
+patients across the ABUHB. % You have made no mention of scenarios up until here, clarify what you mean
+Using methods such as acuity ratios and nurses-per-bed, workforce needs can be estimated over time and across seasons.
 Various workforce planning techniques are reviewed in \cite{hurst03}.
-The aim is to find the best courses of actions to take in order to reduce the workforce gap that will extend over time, and gain an understanding of how changes to patient flows will affect the required skills and workforce for frail and elderly patients.
+The aim of workforce planning is to find the best courses of actions to take in
+order to reduce the workforce gap that will extend over time, and gain an
+understanding of how changes to patient flows will affect the required skills
+and workforce for frail and elderly patients. % This sentence is too long.
 
-
-
+% Add a pointer
 
 \section{Progress \& Learning}
 
-The Gantt chart in Figure~\ref{fig:progressgantt} shown what I have been working on over the last nine months.
+The Gantt chart in Figure~\ref{fig:progressgantt} shown what has been achieved
+since October 2014.
 
 \begin{figure}
     \includestandalone[width=\textwidth]{images/Gantt}
@@ -109,36 +141,60 @@ The Gantt chart in Figure~\ref{fig:progressgantt} shown what I have been working
     \label{fig:progressgantt}
 \end{figure}
 
-I have participated, or will be participating in the following activities:
+I have participated, or will be participating in the following activities: % My previous comment/commit becomes difficult with things like this - perhaps move
+to the end?
 \begin{itemize}
     \item Oct 2014: Gave a talk on my MSc project at a SWORDS event, Cardiff.
-    \item Feb 2015: Gave a talk at Python Namibia 2015 (http://python-namibia.org) at the University of Namibia in Windhoek.
+    \item Feb 2015: Gave a talk at Python Namibia 2015
+        (\url{http://python-namibia.org}) at the University of Namibia in Windhoek.
     \item Mar 2015: NATCOR Stochastic Modelling course, Lancaster.
     \item Apr 2015: Data Mining course, Cardiff.
-    \item May 2015: Gave a lightning talk on Linear Programming at the 'Developing Mathematical Models in Healthcare' seminar in Cardiff.
+    \item May 2015: Gave a lightning talk on Linear Programming at the
+        'Developing Mathematical Models in Healthcare' seminar in Cardiff. % Could link to screencast
     \item May 2015: Gave a talk at the Wales Mathematics Colloquium at Gregynog.
-    \item June 2015: On the organising committee of DjangoCon Europe 2015.
-    \item July 2015: Will be giving a talk at EURO 2015, the European Conference on Operational Research, in Glasgow.
-    \item Sept 2015: Am co-stream-organisers on the Stochastic Modelling stream of the Young OR 19 conference in Birmingham.
+    \item June 2015: On the organising committee of DjangoCon Europe 2015. % Link to website
+    \item Lightning talk at DjangoCon Europe % Write this better
+    \item July 2015: Will be giving a talk at EURO 2015, the European Conference
+        on Operational Research, in Glasgow. % link
+    \item Sept 2015: Am co-stream-organisers on the Stochastic Modelling stream
+        of the Young OR 19 conference in Birmingham. % link
 \end{itemize}
 
-In addition to the above, I have been involved in with some teaching, assessing and marking for a number of modules on the the MSc programme, the second year module MA0261 and the first year module MA1003.
+In addition to the above, I have been involved in teaching, assessing and
+marking for a number of modules on the MSc programme, the second year module
+MA0261 and the first year module MA1003. % Could add the OOP hackathon (I forget the module code)
 I have participated in two hackathon weekends in order to develop my programming skills, and am a regular tutor for maths and stats support.
 
+% Include a pointer.
 
 \section{Literature Review}
 
+% Include a little sentence explaining the structure of the literature review.
+
 \subsection{Queueing Networks}
+
 Queueing theory is an important branch of operational research, and the area of queueing networks have shown great promise in modelling computer and telecommunication systems and manufacturing procedures.
-An introduction to some of its results is given in \cite{stewart09}.
+An introduction to some of these results is given in \cite{stewart09}.
 The theory of a single queue has been widely investigated and developed, with Kendall's notation becoming the standard method of describing a queue.
 Kendall's notation describes a queue as $A/B/C/K/m/Z$: $A$ is the arrival process, $B$ the service process, $C$ the number of servers, $K$ the maximum capacity of the queue, $m$ the size of the population served, and $Z$ the service discipline.
-Service disciplines may be varied, however the main ones are First In First Out (FIFO), Last Come First Served (LCFS), First In Random Out (FIRO) and Process Sharing (PS) in which each customer in the queue is served for a proportion of the time until their service time in complete.
-If the last three parameters are left out, then it is assumed that $K = \infty$, $m = \infty$, and $Z =$ FIFO.
+Service disciplines may be varied, however the main ones include:
 
-Queueing networks are simply a number of the service centres with queues before them arranged into a network, with routing probabilities $r_{ij}$ such that a customer finishing service at node $i$ joins a queue at node $j$ with probability $r_{ij}$.
-In \cite{rege90} a history of their development is narrated, and an overview of the different types of networks studied.
-The simplest, open networks are those that have at least one node to which customers arrive from the exterior, and and least one node from which customers leave to the exterior.
+\begin{itemize}
+    \item First In First Out (FIFO),
+    \item Last Come First Served (LCFS),
+    \item First In Random Out (FIRO),
+    \item Process Sharing (PS) in which each customer in the queue is served for a proportion of the time until their service time in complete.
+\end{itemize}
+Note that if the last three parameters are omitted, then it is assumed that $K = \infty$, $m = \infty$, and $Z =$ FIFO.
+
+Queueing networks are simply a number of the service centres with queues before
+them arranged into a network, with routing probabilities $r_{ij}$ such that a
+customer finishing service at node $i$ joins a queue at node $j$ with
+probability $r_{ij}$. % English is broken here.
+In \cite{rege90} a history of the development of queueing networks is given, and an overview of the different types of networks studied.
+
+The simplest, open networks are those that have at least one node to which
+customers arrive from the exterior, and at least one node from which customers leave to the exterior.
 Closed networks are self-contained networks where no customers arrive or depart to or from the exterior, and as a result always contain a constant total of $N$ customers in the system.
 
 A fundamental result for the study of queues in series is shown in both \cite{burke56} and \cite{reich57}, although derived in different ways.
@@ -146,31 +202,44 @@ The result, known as Burke's Theorem, states that the departure rate of an $M/M/
 This result is fundamental to the study of queues arranged in series or networks.
 The latter paper notes that this result holds for more general service disciplines too, including LCFS, FIRO and systems where the number of servers varies with the number of customers present.
 
-The study of a system of queues in series, or routed into a network, was first investigated in \cite{jackson57}.
+The study of a system of queues in series, or routed into a network, is given in \cite{jackson57}.
 This paper investigates the simplest of cases, where all arrivals and service times are Markovian, the service discipline is FIFO, there is room for an infinite length queue between service centres, and the system is open.
-It is shown that in this case, each service centre, or node, behaves as an independent $M/M/c$ queue, which can be analysed as such, later known as the decomposition method.
+It is shown that in this case, each service centre, or node, behaves as an
+independent $M/M/c$ queue, which can be analysed as such.
+This approach is known as the decomposition method.
 
-This model is extended in \cite{kelly75} to include different classes of customer, each with their own routing probabilities around the network and own service times at each node.
+The basic model is extended in \cite{kelly75} to include different classes of customer, each with their own routing probabilities around the network and own service times at each node.
 The analysis concentrates on obtaining steady-state probabilities for the system state defined as $C = (c_1, c_2, ... , c_J)$.
 Here for each node $i$, $c_i$ is a specific ordering of classes of customer in the queue.
 A few extensions to this model are also presented, including changing the service discipline to PS and LCFS, prohibiting service from beginning until there is a certain amount of customers in the queue, and making service effort rely on the current system state rather than the number of people currently in that queue.
 
-\subsection{Other Things in Queueing Theory}
-More complicated customer behaviours have been studied in queueing theory, such as balking, defined as a customer arriving but deciding not to join the queue, therefore getting lost to the system; and reneging, defined as a customer entering a queue but then leaving before entering service.
+% Pointer to next section
+
+\subsection{Other Things in Queueing Theory} % THIS IS A PHENOMENALLY TERRIBLE TITLE
+
+More complicated customer behaviours have been studied in queueing theory, such
+as balking, defined as a customer arriving but deciding not to join the queue,
+therefore getting lost to the system; and reneging, defined as a customer
+entering a queue but then leaving before entering service. % Sentence is too long - make a list
 Queues with reneging are usually denoted with an extension to Kendall's notation, by $A/B/C/K/m/Z + D$, where $D$ denotes the reneging method.
 In \cite{anckerjrgafarian63a} and \cite{anckerjrgafarian63b} the authors derive steady-state probabilities and mean values for an $M/M/1$ queue where customers exhibit balking and reneging.
 These papers give two separate customer behaviours for balking, first where customers balk with probability $n/N$ when there are $n$ customers in the system, $N-1$ being an upper bound for queue size; and another where customers balk with probability $(1-\beta/n)$ when there are $n$ customers in the system, with $0\leq\beta\leq1$ being a measure of willingness to join the queue.
 In these papers a customer reneges after waiting time $t$ with probability $\alpha e^{-\alpha t}$.
 
+% Pointer
+
 \subsection{Queueing Networks with Blocking}
-Restricted queueing networks, or queueing networks with no or limited intermediate queues between service stations are more complicted to analyse.
+
+Restricted queueing networks, or queueing networks with no or limited intermediate queues between service stations are more complicated to analyse.
 In these systems, if a customer finishes service at one node but is unable to join a queue at his destination node due to lack of queueing space, that customer remains in the current node, restricting his servers from starting the next customer's service.
 This is known as blocking.
-Since blocking introduces interdependencies between nodes, the product form solution of unrestricted networks is not appropriate.
+Since blocking introduces interdependencies between nodes, the product form
+solution of unrestricted networks is not appropriate. % You have not mentioned this before
 One of the first papers to consider these sorts of systems was \cite{hunt56}.
 Results are derived by writing out and solving the systems' difference equations.
 The same method is used in \cite{baber08}.
-The thesis investigates two and three node systems, as well as systems with one service sentre with infinite queue routing into a number of these two and three node systems.
+The thesis investigates two and three node systems, as well as systems with one
+service centre with infinite queue routing into a number of these two and three node systems.
 
 A two node system with no intermediate queue and blocking is studied in \cite{aviitzhakyadin65}.
 In this paper the moment generating functions of waiting time and number of customers in the system are derived, from which further performance measures can be obtained.
@@ -181,26 +250,44 @@ Three blocking situations are studied in \cite{latoucheneuts80}, defined by rule
 If the node that is subject to blocking has $r$ parallel servers, then once $r^*$ ($1\leq r\leq r^*$) servers become blocked all remaining unblocked servers stop service and the node becomes fully blocked.
 Given that there is a room for $M$ customers to wait between nodes, once there are only $k^*$ ($0\leq k^*\leq M+r^*-2$) customers waiting between the nodes all services may start again and the node becomes unblocked.
 
-And approximation method for solving queueing networks with downstream blocking only in presented in \cite{takahashi80}.
-The algorithm finds the mean values of a queueing network with feedforward flows and single server nodes.
-Iteratively working from the node furthest downstream and working backwards, if that station does exhibit blocking it finds the effective service time, that is the weighted sum of service time and the mean time blocked and waiting to transition to the next node, and computes the effective service time for the next upstream node with a recursive formula.
+An approximation method for solving queueing networks with downstream blocking
+only is presented in \cite{takahashi80}.
+The algorithm finds the mean values of a queueing network with feed forward flows and single server nodes.
+Iteratively working from the node furthest downstream and working backwards, if
+that station does exhibit blocking it finds the effective service time, that is
+the weighted sum of service time and the mean time blocked and waiting to
+transition to the next node, and computes the effective service time for the
+next upstream node with a recursive formula. % I would replace this sentence with pseudo code which is a nice way of describing an algorithm
 This method is adapted to multi-server service stations with no intermediate queues in \cite{koizumietal05}, and a similar iterative method was used in \cite{korporaaletal00}.
 
-Restriced queueing networks can give rise to the phenomenon of deadlock.
+Restricted queueing networks can give rise to the phenomenon of deadlock
+\cite{}.
 In the simplest of cases, deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
-This can cause problems for both analytical and simuation models, and most of the literature on blocking conveniently assumes the networks are deadlock-free.
+This can cause problems for both analytical and simulation models, and most of
+the literature on blocking conveniently assumes the networks are deadlock-free.
+% It is not quite evident that this is a problem, you need to clarify that in
+% reality deadlock can at times be completely avoided.
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum subcycle of the network.
 The paper also presents algorithms for finding the minimum queueing space required to ensure deadlock never occurs, for closed cactus networks, where no two cycles have more than one node in common.
 This result is extended to multiple classes of customer in \cite{liebeherrakyildiz95}, with more restrictions such as single servers and each class having the same service time distribution.
 Here a integer linear program is formulated to find the minimum queueing space assignment that prevents deadlock.
 The literature does not discuss deadlock properties in open restricted queueing networks.
 
-\subsection{Relevant OR Healthcare Stuff}
+% Pointer
+
+\subsection{Relevant OR Healthcare Stuff} % CHANGE THIS
+
 Operational research techniques are well suited to be applied to the kinds of problems that arise in the health care system.
 This view is supported in \cite{buhaug02}.
 This article describes the problems experienced in health care settings as mostly dealing with uncertainty or variability in the demand of services and resources, which may be analysed using standard operational research methods including queueing theory and simulation.
 Other health care issues lending themselves to OR listed include scheduling and capacity planning problems.
-The nature of healthcare systems is described in \cite{harper02}; there is complexity, for example different flow rules for different patients at different times; there is uncertainty for example in demand, which can vary with month of the year, day of the week and even hour of the day; there is variability, for example the attributes and length of stay distributions patient classes can be vastly different; and the all parts of the system are highly integrated with other parts of the hospital and other hospitals in the region.
+The nature of healthcare systems is described in \cite{harper02}; there is
+complexity, for example different flow rules for different patients at different
+times; there is uncertainty for example in demand, which can vary with month of
+the year, day of the week and even hour of the day; there is variability, for
+example the attributes and length of stay distributions patient classes can be
+vastly different; and the all parts of the system are highly integrated with
+other parts of the hospital and other hospitals in the region. % Sentence is too long
 The paper builds a framework for building OR tools and models, which should be flexible and versatile to be applied to more than one specific area of the system, easy to use and able to answer "what if?" scenarios, integrated with all other parts of the system, and be validated with data.
 
 Whole hospital and whole systems approaches are sometimes necessary when modelling and optimising healthcare systems in order to capture and investigate patient flows, up- and downstream resources, and identifying bottlenecks in the structures.
@@ -210,8 +297,13 @@ Here the authors conclude that there is an emphasis in the literature on the int
 A whole system simulation is built in \cite{vianaetal12}, bringing together eye clinics and social care to model elderly patients with age-related macular degeneration.
 This model is novel as it combines discrete event simulation, systems dynamics and agent-based modelling in one model in order to model patient flow through the eye clinic, patients' sight decay, and their social care respectively.
 
+% Is this the right place for this section? Seems a bit strange.
+
 \subsection{Queueing Networks Applied to Healthcare}
-The use of queueing theory for healthcare purposes is widespread.
+
+This section will give an overview of particular application of queuing network
+analysis to healthcare.
+
 A geriatric ward is modelled as an $M/PH/c$ queue in \cite{gorunescuetal02}, a multi server queue with phase-type distribution where no queue is allowed to build up, i.e. patients are sent elsewhere and lost to the system if all $c$ beds are occupied.
 This model is used to find the optimal number of beds in order to reduce the cost of turning away patients and maintaining empty beds.
 
@@ -230,22 +322,32 @@ However, the model used yielded realistic results and some useful conclusions an
 In \cite{koizumietal05} a queueing network with upstream blocking is used to model the flow of mental health patients through a care system in Philadelphia, where service stations are housing facilities: extended acute hospitals, residential facilities and supported housing.
 Its aim was to find an alternative approach to the needs assessment approach of capacity planning, however it was found that the queueing network model with static arrival rates could not effectively model the real-world as customer behaviour exhibited reneging based on waiting times.
 
+% Pointer
+
 \subsection{Reinforcement Learning}
+% This section seems slightly out of place are you sure it should be here?
+
 The concept of machines learning from experience stems from the first papers on computing, notably \cite{turing50}.
 In this early paper the idea is discussed that actions chosen at random will be repeated more often if that action resulted in a reward, and less often if that action resulted in punishment.
-This forms the basis of reinforcement learning.
+This forms the basis of reinforcement learning. % This is a really nice introduction to this section
 
-As subset of unsupervised machine learning, reinforcement learning is a computational way of learning and decision-making through goal seeking means.
 Comprehensive overviews are given in \cite{suttonbarto98} and \cite{szepesvari10}.
 
-
-
+% Pointer
 
 \section{Analytical Models of Open Queueing Networks}
+
+% Have a little something here.
+
 \subsection {Queueing Networks}
+% What is this section for? You have already talks about Queueing networks\dots
+% If you are going to go in to more detail about it you need to signpost that
+% earlier. Clearly point out what each section is from the start.
+
 Queueing networks are a set of service centers, with or without a queueing space before them.
 They are connected by possible routes such that when a customer finishes service at one service centre he or she joins the queue of another service centre according to a probability distribution.
 Throughout this report queueing networks will be represented as in Figure~\ref{fig:QnetNotation} unless stated otherwise.
+% I am not sure I know what the representation is - clarify this.
 
 \begin{figure}[H]
     \includestandalone[width=\textwidth]{images/Qnetnotation}
@@ -253,9 +355,10 @@ Throughout this report queueing networks will be represented as in Figure~\ref{f
     \label{fig:QnetNotation}
 \end{figure}
 
-Here the service centres are shown as circles and all possible routings as shown as arrows.
-The external arrival rate to node $i$ is denoted by $\Lambda_i$, there is $c_i$ servers serving at a rate of $\mu_i$ at node $i$.
+Here the service centres are shown as circles and all possible routings are shown as arrows.
+The external arrival rate to node $i$ is denoted by $\Lambda_i$, there are $c_i$ servers serving at a rate of $\mu_i$ at node $i$.
 Routing probabilities are described by the routing matrix $R$, with elements $r_{ij}$ denoting the probability of transitioning from node $i$ to node $j$ once service is complete.
+% If the matrix is R then it's entries are R_ij (capital).
 The probability of leaving the system after service at node $i$ is given by $1 - \sum_j r_{ij}$.
 The routing matrix for the network in Figure~\ref{fig:QnetNotation} is given by
 
@@ -270,9 +373,10 @@ R = \left(
 \end{equation*}
 
 Nodes 1 and 3 have open queues, denoted with open rectangles, and have infinite queueing capacity.
-Node 2 is restricted, and its queue can only accomodate $n_2$ waiting customers.
+Node 2 is restricted, and its queue can only accommodate $n_2$ waiting customers.
 If a customer finishes service and wants to transition to node 2, but node 2 has a full queue, then that customer remains at its current node until space becomes available at node 2.
-While remaining at its node, that customer blocks waiting customers from entering service until he or she has left that node.
+While remaining at its node, that customer blocks waiting customers from
+entering service until they have left that node.
 
 As well as being classified as either restricted (containing at least one node with limited capacity) and unrestricted, queueing networks are classified as either open or closed.
 In an open queueing network customers can arrive externally to the network, and can leave the network once service is finished.
@@ -280,26 +384,33 @@ In closed queueing networks, there is a fixed amount of customers in the network
 
 This report will only look at open queueing networks.
 
+% Pointer
 
 \subsection{Open Unrestricted Queueing Networks}
+
 In order to solve open unrestricted queueing networks, we make use of the following theorem due to \cite{burke56} and \cite{reich57}.
 Known as Burke's Theorem, it states that the departure rate of customers from a service station is equal to the arrival rate.
+% You have stated this theorem already and you stated it currently differently.
+% (You mentioned servers and not collection of servers).
 
 Therefore, each node's effective arrival rate can be calculated by solving the following traffic equations
 
 \begin{equation}
-    \lambda_i = \Lambda_i + \sum_j r_{ji} \quad \forall i
+    \lambda_i = \Lambda_i + \sum_j r_{ji} \quad \forall\; i
 \end{equation}
 
 We can now make use of Jackson's Theorem \cite{jackson57} in order to use the decomposition method to solve the queueing network.
 It states that, given a network with $M$ service stations, each service station can be solved independently of the others.
-That is, if $P(k_1, k_2, \dotsc, k_M)$ is the probabiliy of there being $k_1$ customers at node 1 and $k_2$ customers at node 2, etc., and $P_i(k_i)$ is the probability of there being $k_i$ customers at node $i$, then the following is true
+% 'solving' a service station does not make sense. I would put this in a proper
+% theorem environment and state it properly
+That is, if $P(k_1, k_2, \dotsc, k_M)$ is the probability of there being $k_1$ customers at node 1 and $k_2$ customers at node 2, etc., and $P_i(k_i)$ is the probability of there being $k_i$ customers at node $i$, then the following is true
 
 \begin{equation}
     P(k_1, k_2, \dotsc, k_M) = \prod_{i=1}^M P_i(k_i)
 \end{equation}
 
 From this solving the networks is simply a case of decomposing the network into individual nodes.
+% Again: a network is not something that is solved. Reword this.
 Performance measures such as expected number of customers in the system and expected time spent in the system can easily be found in the same manner:
 
 \begin{equation}
@@ -310,7 +421,10 @@ Performance measures such as expected number of customers in the system and expe
     W = \sum_i {L_i \over \lambda_i}
 \end{equation}
 
-\subsubsection{Example of Solving a Jackson Network}
+% Pointer
+
+\subsubsection{Example of Solving a Jackson Network} % Networks are not solved
+
 Consider the queueing network shown in Figure~\ref{fig:jacksonnet}.
 
 \begin{figure}[H]
@@ -321,22 +435,19 @@ Consider the queueing network shown in Figure~\ref{fig:jacksonnet}.
 
 The traffic equations yield the following set of simultaneous equations:
 
-\begin{equation*}
-\lambda_1 = 10 + 0.1 \lambda_2
-\end{equation*}
-\begin{equation*}
-\lambda_2 = 12 + 0.2 \lambda_3
-\end{equation*}
-\begin{equation*}
-\lambda_3 = 0.2 \lambda_1 + 0.4 \lambda_2
-\end{equation*}
+\begin{align*}
+\lambda_1 &= 10 + 0.1 \lambda_2\\
+\lambda_2 &= 12 + 0.2 \lambda_3\\
+\lambda_3 &= 0.2 \lambda_1 + 0.4 \lambda_2
+\end{align*}
 
 Which when solved give the following effective arrival rates to each node, $\lambda_1 \approx 11.354$, $\lambda_2 \approx 13.537$, $\lambda_3 \approx 7.686$.
-Then, using the following equations from standard ueueing theory, each node can be analysed independently.
+Then, using the following equations from standard queueing theory, each node can be analysed independently.
 
 \begin{equation}
 P(0) = \left[\sum_{j=0}^{c-1}{\left({^\lambda / _\mu}\right)^j\over j!}+{\left({^\lambda / _\mu}\right)^c\over c!\left(1-{\left(^\lambda / _{\mu c}\right)} \right)}\right]^{-1}
 \end{equation}
+% Have you defined P(0), P(j) etc\dots? I don't remember reading it if so.
 
 \begin{equation}
 P(j)=\left\{\;\begin{array}{@{}c@{}}
@@ -346,7 +457,10 @@ P(j)=\left\{\;\begin{array}{@{}c@{}}
 \right.
 \end{equation}
 
-Now, if we wish to find $P(3, 1, 1)$, the probability that node 1 has 3 customers, node 2 has 1 customer and node 3 has 1 customer, by Jackson's Theorem we can look at each node seperately.
+Now, if we wish to find $P(3, 1, 1)$, the probability that node 1 has 3
+customers, node 2 has 1 customer and node 3 has 1 customer, by Jackson's Theorem
+we can look at each node separately.
+% Same comment as before, have you defined P(3,1,1)?
 The above equations yield $P_1(3) \approx 0.10541$, $P_2(1) \approx 0.22172$ ane $P_3(1) \approx 0.29827$.
 And so:
 
@@ -375,14 +489,24 @@ From which we get:
     \end{split}
 \end{equation*}
 
+% Pointer
 
 \subsection{Restricted Queueing Networks}
+
 Restricted queueing networks are those where at least one node has limited capacity and blocking rules apply.
+% You have said this before, there's no harm in repeating but you need to word
+% this clearly as a repetition and point to where you mentioned it previously
 These networks are not as simple to solve as open unrestricted queueing networks, as Burke's Theorem no longer applies.
 These become even more difficult to solve when there exist feedback loops in the networks.
 We will concentrate on restricted networks with feedforward flows only.
 
 \subsubsection{Solving using Difference Equations}
+% These are actually 'Differential difference' equations and really just
+% end up corresponding to the linear equations you solve for the corresponding
+% markov chain (it's just a markov chain). I don't really like even referring to
+% them but will leave that up to you/Paul.
+% Also, you do not 'solve using the difference equations', you solve the
+% difference equations\dots (but again this whole section is not great\dots)
 This method was used in \cite{baber08} to investigate the behaviour of queues with blocking.
 In this method equations are derived for every state of the queueing network, and so networks with very many states become very difficult to solve.
 
@@ -399,6 +523,7 @@ Define $P_{i,j}(t)$ as there being $i$ customers in the first node, $j$ customer
 Define $P_{1b,1}(t)$ as there being 1 blocked customer in the first node, 1 customer in the second node at time $t$.
 Then we get the following difference equations:
 
+% You need to use the align environment for these equations.
 \begin{equation*}
     P_{0,0}(t+\delta t) = (1 - \Lambda \delta t)P_{0,0}(t) + (1 - \Lambda \delta t)\mu_2 \delta t P_{0,1}(t)
 \end{equation*}
@@ -417,6 +542,7 @@ Then we get the following difference equations:
 
 Differentiating leaves:
 
+% Align env
 \begin{equation*}
     \frac{d P_{0,0}(t)}{dt} = - \Lambda P_{0,0}(t) + \mu_2 P_{0,1}(t)
 \end{equation*}
@@ -433,8 +559,12 @@ Differentiating leaves:
     \frac{d P_{1b,1}(t)}{dt} = - \mu_2 P_{1b,1}(t) + \mu_1 P_{1,1}(t)
 \end{equation*}
 
-We are interested in stead-state probabilities. Stedy states occur when the differentials are set to 0:
+We are interested in stead-state probabilities. Steady states occur when the differentials are set to 0:
+% Again all this just corresponds to the linear equations of the Markov chain.
+% Doing it this way is just long and also potentially 'shows off' that you don't
+% realise that it's just a Markov chain
 
+% Align env
 \begin{equation*}
     \Lambda P_{0,0} = \mu_2 P_{0,1}
 \end{equation*}
@@ -493,11 +623,20 @@ Substituting in the problem's values given in Figure~\ref{fig:2nodesNoQs}, $\Lam
     P_{1,0} \approx 0.30452
 \end{equation*}
 
-
+% All of the above corresponds to writing down \(Q=\dots\) and solving the
+% corresponding matrix equation (as is is a bit clumsy in my opinion).
 
 \subsubsection{Solving using Markov Chains}
-Queueing networks with larger state-spaces can be solved numerically with the aid of computers.
+% This should not really be a separate section, the above is the same as this
+% but just with clumsy notation.
+% Also you do not 'solve using Markov Chains' you 'obtain the steady state
+% probabilities of the Markov chain', the previous section is 'doing this by
+% writing out each equation slowly and not knowing the definition of a Markov
+% chain', this section is 'Using linear algebra'.
+
+Queueing networks with larger state-spaces can be solved numerically.
 The computations of the transition matrices and matrix inversions are all done using Python.
+% Do we care about this?
 The queueing network solved using the difference equations method can be generalised to include finite queues before each server.
 This network is shown in Figure~\ref{fig:2nodesQs}.
 
@@ -544,18 +683,23 @@ The transition rates $q_{(i_1, j_1),(i_2, j_2)}$, the rate at which the system t
 
 Where $\delta = (i_2-i_1, j_2-j_1)$.
 
-The transition matrix is constructed numerically using Python, discretised, and then solved by finding the eigenvectors corresponding to the eigenvalue 1.
+The transition matrix is constructed numerically using Python, discretized, and then solved by finding the eigenvectors corresponding to the eigenvalue 1.
 
 This method becomes more difficult when some infinite queues are allowed, as the state-space becomes infinite.
 Truncating the state-space is one way of overcoming this.
 
-The representation of the states will have to be altered to accomodate more nodes, more routing possibilities and multi-server queues.
+The representation of the states will have to be altered to accommodate more nodes, more routing possibilities and multi-server queues.
 
 
+
+
+% pointer
 
 \subsubsection{Solving Using an Approximation}
+% Title should be something like 'An approximate approach'
+
 An approximation method was developed by \cite{takahashi80}, and developed and implemented in \cite{koizumietal05} for queueing networks with blocking with no intermediate queues.
-This approximation makes use of the effective service time, illustarted in Figure~\ref{fig:effectiveservicetime}.
+This approximation makes use of the effective service time, illustrated in Figure~\ref{fig:effectiveservicetime}.
 The effective service time at node $i$, denoted $^1 / _{\tilde{\mu}_i}$, is the time spent from entering service at node $i$ to departing that node.
 It includes the time spent blocked at that node before being able to move on to another node.
 
@@ -613,7 +757,8 @@ We now have all we require to find the effective service rate of node 1.
 \begin{equation*}
     \begin{split}
     \frac{1}{\tilde{\mu}_1} & = \left( 1 - \sum_j r_{ij} \right) \left( \frac{1}{\mu_i} \right) + \sum_j r_{ij} \left( \frac{1}{\mu_i} + W_j \right) \\
-    & \approx \left( 0.6 \times \frac{1}{12} \right) + \left( 0.4 \times \left( \frac{1}{12} + 0.00061643 \right) \right) \\
+    & \approx \left( 0.6 \times \frac{1}{12} \right) + \left( 0.4 \times \left(
+    \frac{1}{12} + 0.00061643 \right) \right) \\ % no need for this line
     & \approx 0.0836073
     \end{split}
 \end{equation*}
