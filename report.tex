@@ -53,8 +53,7 @@ Patients who remain in hospitals when they could otherwise have returned home bl
 This becomes a strain on the workforce, both in hospitals and community care teams.
 An understanding of the situation could alleviate this pressure.
 
-% Perhaps here include a pointer for the next subsection? (Always nice to have a
-% sentence)
+The next subsection will discuss how patient flows through the healthcare system will be analysed.
 
 \resultssubsection{Patient Flows}
 
@@ -83,7 +82,7 @@ analytic results will be compared to results obtained through simulation.
 A user friendly Django application of this simulation will be built which will
 feature simple parameter inputs and graphical outputs.
 
-% add pointer
+An extention of analysing current and potential patient flows is to derive optimal patient flows, which will be discussed in the next subsection.
 
 \subsection{Optimal Routing of Patients}
 
@@ -100,13 +99,16 @@ through exploration of their environment, by completing actions and subsequently
 Overviews are given in \cite{suttonbarto98} and \cite{szepesvari10}.
 The \(q\)-learning algorithm will be used to find the optimal action to take given a specific state.
 
-In order to implement this for the queueing network simulation model, the nodes
-or service centres will become the agents, the state will be the number of
-patients at that node, and the reward will be some function of expected wait. % Put this list in a bullet point list
-It will be interesting to see the effect of social vs selfish rewards (that is,
-does the node receive rewards according to the system's state or just its own
-state), and the difference between nodes observing the whole system's state and
-only observing its own state. % This is not a well written sentence.
+In order to implement this for the queueing network simulation model:
+\begin{itemize}
+    \item nodes or service centres will become the agents
+    \item the state will be the number of patients at that node
+    \item the reward will be some function of expected wait
+\end{itemize}
+
+Two potentially interesting areas to investigate are the effect of social vs selfish rewards, and how much each agent knows about the system.
+Social vs selfish rewards corresponds to node receiving rewards according to the system's state vs recieving rewards from just its own state.
+Agents could be observing the whole system's state or only observing its own state.
 
 An extension of the above problem could be finding the optimal routing of
 patients when the agents are blind to their state, that is when they are not
@@ -114,21 +116,24 @@ aware of the system state.
 Some results from game theory, and techniques such as genetic algorithms and
 linear programming will be explored.
 
-% Include a pointer.
+The purpose of investigating patient flows in this project is to plan and supply the workforce appropriately, which will be discussed in the next subsection.
 
 \subsection{Workforce Planning}
 
-The performance measures from each of the scenarios explored will be used to
+The performance measuresof the queueing network models will be used to
 compare the workforce needs and skill mix required to care for frail and elderly
-patients across the ABUHB. % You have made no mention of scenarios up until here, clarify what you mean
+patients across the ABUHB.
+With the user-friendly application, future trends and potential scenarios may be explored, with their effect on workforce investigated.
+
 Using methods such as acuity ratios and nurses-per-bed, workforce needs can be estimated over time and across seasons.
 Various workforce planning techniques are reviewed in \cite{hurst03}.
 The aim of workforce planning is to find the best courses of actions to take in
-order to reduce the workforce gap that will extend over time, and gain an
+order to reduce the workforce gap that will extend over time.
+It is also important to gain an
 understanding of how changes to patient flows will affect the required skills
-and workforce for frail and elderly patients. % This sentence is too long.
+and workforce for frail and elderly patients.
 
-% Add a pointer
+The next section will give an overview of my progress so far.
 
 \section{Progress \& Learning}
 
@@ -141,8 +146,7 @@ since October 2014.
     \label{fig:progressgantt}
 \end{figure}
 
-I have participated, or will be participating in the following activities: % My previous comment/commit becomes difficult with things like this - perhaps move
-to the end?
+I have participated, or will be participating in the following activities:
 \begin{itemize}
     \item Oct 2014: Gave a talk on my MSc project at a SWORDS event, Cardiff.
     \item Feb 2015: Gave a talk at Python Namibia 2015
@@ -150,26 +154,53 @@ to the end?
     \item Mar 2015: NATCOR Stochastic Modelling course, Lancaster.
     \item Apr 2015: Data Mining course, Cardiff.
     \item May 2015: Gave a lightning talk on Linear Programming at the
-        'Developing Mathematical Models in Healthcare' seminar in Cardiff. % Could link to screencast
+        'Developing Mathematical Models in Healthcare' seminar in Cardiff. (\url{http://www.youtube.com/watch?v=2NMp6WsK-QI&t=67m14s})
     \item May 2015: Gave a talk at the Wales Mathematics Colloquium at Gregynog.
-    \item June 2015: On the organising committee of DjangoCon Europe 2015. % Link to website
-    \item Lightning talk at DjangoCon Europe % Write this better
+    \item June 2015: Part of the organising committee of DjangoCon Europe 2015 (\url{http://2015.djangocon.eu}), also gave a lightning talk at the event.
     \item July 2015: Will be giving a talk at EURO 2015, the European Conference
-        on Operational Research, in Glasgow. % link
+        on Operational Research, in Glasgow. (\url{http://www.euro2015.org})
     \item Sept 2015: Am co-stream-organisers on the Stochastic Modelling stream
-        of the Young OR 19 conference in Birmingham. % link
+        of the Young OR 19 conference in Birmingham. (\url{http://www.theorsociety.com/yor19})
 \end{itemize}
 
 In addition to the above, I have been involved in teaching, assessing and
-marking for a number of modules on the MSc programme, the second year module
-MA0261 and the first year module MA1003. % Could add the OOP hackathon (I forget the module code)
+marking for a number of modules on the MSc programme including an object-orientated programming hackathon, the second year module
+MA0261 and the first year module MA1003.
 I have participated in two hackathon weekends in order to develop my programming skills, and am a regular tutor for maths and stats support.
 
-% Include a pointer.
+The next section will review the literature relevent to the project.
 
 \section{Literature Review}
 
-% Include a little sentence explaining the structure of the literature review.
+This literature review is structured as follows:
+The first section gives an overview of how operational research is used in healthcare.
+The second, third and fourth sections gives overviews on various aspects of queueing theory, including restricted queueing networks.
+The fifth section discusses how queueing networks have been used in healthcare.
+The sixth section introduces the concept of reinforcement learning.
+
+\subsection{Literature on Operational Research in Healthcare}
+
+Operational research techniques are well suited to be applied to the kinds of problems that arise in the health care system.
+This view is supported in \cite{buhaug02}.
+This article describes the problems experienced in health care settings as mostly dealing with uncertainty or variability in the demand of services and resources, which may be analysed using standard operational research methods including queueing theory and simulation.
+Other health care issues lending themselves to OR listed include scheduling and capacity planning problems.
+The nature of healthcare systems is described in \cite{harper02}, with key features listed below:
+\begin{itemize}
+    \item Complexity: for example different flow rules for different patients at different times
+    \item Uncertainty: for example in demand, which can vary with month of the year, day of the week and even hour of the day
+    \item Variability: for example the attributes and length of stay distributions patient classes can be vastly different
+    \item Integration: and the all parts of the system are highly integrated with other parts of the hospital and other hospitals in the region
+\end{itemize}
+The paper builds a framework for building OR tools and models, which should be flexible and versatile to be applied to more than one specific area of the system, easy to use and able to answer "what if?" scenarios, integrated with all other parts of the system, and be validated with data.
+
+Whole hospital and whole systems approaches are sometimes necessary when modelling and optimising healthcare systems in order to capture and investigate patient flows, up- and downstream resources, and identifying bottlenecks in the structures.
+A review of the operational research literature that involves multi-departmental analysis in presented in \cite{twente09}.
+Here the authors conclude that there is an emphasis in the literature on the interaction between the wards, the emergency department and the surgery departments.
+
+A whole system simulation is built in \cite{vianaetal12}, bringing together eye clinics and social care to model elderly patients with age-related macular degeneration.
+This model is novel as it combines discrete event simulation, systems dynamics and agent-based modelling in one model in order to model patient flow through the eye clinic, patients' sight decay, and their social care respectively.
+
+One OR technique that is used in healthcare is queueing networks, which will be discussed in the next subsection.
 
 \subsection{Queueing Networks}
 
@@ -187,10 +218,10 @@ Service disciplines may be varied, however the main ones include:
 \end{itemize}
 Note that if the last three parameters are omitted, then it is assumed that $K = \infty$, $m = \infty$, and $Z =$ FIFO.
 
-Queueing networks are simply a number of the service centres with queues before
+Queueing networks are simply a number of service centres with queues before
 them arranged into a network, with routing probabilities $r_{ij}$ such that a
 customer finishing service at node $i$ joins a queue at node $j$ with
-probability $r_{ij}$. % English is broken here.
+probability $r_{ij}$.
 In \cite{rege90} a history of the development of queueing networks is given, and an overview of the different types of networks studied.
 
 The simplest, open networks are those that have at least one node to which
@@ -207,26 +238,35 @@ This paper investigates the simplest of cases, where all arrivals and service ti
 It is shown that in this case, each service centre, or node, behaves as an
 independent $M/M/c$ queue, which can be analysed as such.
 This approach is known as the decomposition method.
+The following product form solution is proved:
+
+\begin{equation}
+    P(k_1, k_2, \dotsc, k_M) = \prod_{i=1}^M P_i(k_i)
+\end{equation}
+
+where $P_i(k_i)$ is the probability of node $i$ containing $k_i$ customers, and $P(k_1, k_2, \dotsc, k_M)$ represents the probability of the system being in the state $(k_1, k_2, \dotsc, k_M)$, having $k_j$ cutomers at node $j$ for all $j$.
 
 The basic model is extended in \cite{kelly75} to include different classes of customer, each with their own routing probabilities around the network and own service times at each node.
 The analysis concentrates on obtaining steady-state probabilities for the system state defined as $C = (c_1, c_2, ... , c_J)$.
 Here for each node $i$, $c_i$ is a specific ordering of classes of customer in the queue.
 A few extensions to this model are also presented, including changing the service discipline to PS and LCFS, prohibiting service from beginning until there is a certain amount of customers in the queue, and making service effort rely on the current system state rather than the number of people currently in that queue.
 
-% Pointer to next section
+This section will be expanded upon later.
+The next subsection will discuss more general feature in queueing theory that are useful in modelling.
 
-\subsection{Other Things in Queueing Theory} % THIS IS A PHENOMENALLY TERRIBLE TITLE
+\subsection{General Features of Queueing Theory}
 
 More complicated customer behaviours have been studied in queueing theory, such
-as balking, defined as a customer arriving but deciding not to join the queue,
-therefore getting lost to the system; and reneging, defined as a customer
-entering a queue but then leaving before entering service. % Sentence is too long - make a list
+as balking and reneging.
+Balking isdefined as a customer arriving but deciding not to join the queue,
+therefore getting lost to the system.
+Reneging is when a customer entering a queue but then leaving before entering service.
 Queues with reneging are usually denoted with an extension to Kendall's notation, by $A/B/C/K/m/Z + D$, where $D$ denotes the reneging method.
 In \cite{anckerjrgafarian63a} and \cite{anckerjrgafarian63b} the authors derive steady-state probabilities and mean values for an $M/M/1$ queue where customers exhibit balking and reneging.
 These papers give two separate customer behaviours for balking, first where customers balk with probability $n/N$ when there are $n$ customers in the system, $N-1$ being an upper bound for queue size; and another where customers balk with probability $(1-\beta/n)$ when there are $n$ customers in the system, with $0\leq\beta\leq1$ being a measure of willingness to join the queue.
 In these papers a customer reneges after waiting time $t$ with probability $\alpha e^{-\alpha t}$.
 
-% Pointer
+In the next subsection, queues with blocking properties will be discussed.
 
 \subsection{Queueing Networks with Blocking}
 
@@ -234,7 +274,7 @@ Restricted queueing networks, or queueing networks with no or limited intermedia
 In these systems, if a customer finishes service at one node but is unable to join a queue at his destination node due to lack of queueing space, that customer remains in the current node, restricting his servers from starting the next customer's service.
 This is known as blocking.
 Since blocking introduces interdependencies between nodes, the product form
-solution of unrestricted networks is not appropriate. % You have not mentioned this before
+solution of unrestricted networks is not appropriate.
 One of the first papers to consider these sorts of systems was \cite{hunt56}.
 Results are derived by writing out and solving the systems' difference equations.
 The same method is used in \cite{baber08}.
@@ -263,41 +303,17 @@ This method is adapted to multi-server service stations with no intermediate que
 Restricted queueing networks can give rise to the phenomenon of deadlock
 \cite{}.
 In the simplest of cases, deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
-This can cause problems for both analytical and simulation models, and most of
+This can cause problems for both analytical and simulation models as in reality deadlock can be avoided or resolved quickly, and most of
 the literature on blocking conveniently assumes the networks are deadlock-free.
-% It is not quite evident that this is a problem, you need to clarify that in
-% reality deadlock can at times be completely avoided.
+
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum subcycle of the network.
 The paper also presents algorithms for finding the minimum queueing space required to ensure deadlock never occurs, for closed cactus networks, where no two cycles have more than one node in common.
 This result is extended to multiple classes of customer in \cite{liebeherrakyildiz95}, with more restrictions such as single servers and each class having the same service time distribution.
 Here a integer linear program is formulated to find the minimum queueing space assignment that prevents deadlock.
 The literature does not discuss deadlock properties in open restricted queueing networks.
 
-% Pointer
+The next subsection will review how some modellers have applied the theory of queueing networks to a healthcare system.
 
-\subsection{Relevant OR Healthcare Stuff} % CHANGE THIS
-
-Operational research techniques are well suited to be applied to the kinds of problems that arise in the health care system.
-This view is supported in \cite{buhaug02}.
-This article describes the problems experienced in health care settings as mostly dealing with uncertainty or variability in the demand of services and resources, which may be analysed using standard operational research methods including queueing theory and simulation.
-Other health care issues lending themselves to OR listed include scheduling and capacity planning problems.
-The nature of healthcare systems is described in \cite{harper02}; there is
-complexity, for example different flow rules for different patients at different
-times; there is uncertainty for example in demand, which can vary with month of
-the year, day of the week and even hour of the day; there is variability, for
-example the attributes and length of stay distributions patient classes can be
-vastly different; and the all parts of the system are highly integrated with
-other parts of the hospital and other hospitals in the region. % Sentence is too long
-The paper builds a framework for building OR tools and models, which should be flexible and versatile to be applied to more than one specific area of the system, easy to use and able to answer "what if?" scenarios, integrated with all other parts of the system, and be validated with data.
-
-Whole hospital and whole systems approaches are sometimes necessary when modelling and optimising healthcare systems in order to capture and investigate patient flows, up- and downstream resources, and identifying bottlenecks in the structures.
-A review of the operational research literature that involves multi-departmental analysis in presented in \cite{twente09}.
-Here the authors conclude that there is an emphasis in the literature on the interaction between the wards, the emergency department and the surgery departments.
-
-A whole system simulation is built in \cite{vianaetal12}, bringing together eye clinics and social care to model elderly patients with age-related macular degeneration.
-This model is novel as it combines discrete event simulation, systems dynamics and agent-based modelling in one model in order to model patient flow through the eye clinic, patients' sight decay, and their social care respectively.
-
-% Is this the right place for this section? Seems a bit strange.
 
 \subsection{Queueing Networks Applied to Healthcare}
 
@@ -322,32 +338,27 @@ However, the model used yielded realistic results and some useful conclusions an
 In \cite{koizumietal05} a queueing network with upstream blocking is used to model the flow of mental health patients through a care system in Philadelphia, where service stations are housing facilities: extended acute hospitals, residential facilities and supported housing.
 Its aim was to find an alternative approach to the needs assessment approach of capacity planning, however it was found that the queueing network model with static arrival rates could not effectively model the real-world as customer behaviour exhibited reneging based on waiting times.
 
-% Pointer
+The next subsection will introduce reinforcement learning.
 
 \subsection{Reinforcement Learning}
-% This section seems slightly out of place are you sure it should be here?
 
 The concept of machines learning from experience stems from the first papers on computing, notably \cite{turing50}.
 In this early paper the idea is discussed that actions chosen at random will be repeated more often if that action resulted in a reward, and less often if that action resulted in punishment.
-This forms the basis of reinforcement learning. % This is a really nice introduction to this section
+This forms the basis of reinforcement learning.
 
 Comprehensive overviews are given in \cite{suttonbarto98} and \cite{szepesvari10}.
 
-% Pointer
+The next section will give overviews and examples on solving the steady-state probabilities and performance measures of queueing networks.
 
 \section{Analytical Models of Open Queueing Networks}
 
 % Have a little something here.
 
 \subsection {Queueing Networks}
-% What is this section for? You have already talks about Queueing networks\dots
-% If you are going to go in to more detail about it you need to signpost that
-% earlier. Clearly point out what each section is from the start.
 
 Queueing networks are a set of service centers, with or without a queueing space before them.
 They are connected by possible routes such that when a customer finishes service at one service centre he or she joins the queue of another service centre according to a probability distribution.
 Throughout this report queueing networks will be represented as in Figure~\ref{fig:QnetNotation} unless stated otherwise.
-% I am not sure I know what the representation is - clarify this.
 
 \begin{figure}[H]
     \includestandalone[width=\textwidth]{images/Qnetnotation}
@@ -358,7 +369,6 @@ Throughout this report queueing networks will be represented as in Figure~\ref{f
 Here the service centres are shown as circles and all possible routings are shown as arrows.
 The external arrival rate to node $i$ is denoted by $\Lambda_i$, there are $c_i$ servers serving at a rate of $\mu_i$ at node $i$.
 Routing probabilities are described by the routing matrix $R$, with elements $r_{ij}$ denoting the probability of transitioning from node $i$ to node $j$ once service is complete.
-% If the matrix is R then it's entries are R_ij (capital).
 The probability of leaving the system after service at node $i$ is given by $1 - \sum_j r_{ij}$.
 The routing matrix for the network in Figure~\ref{fig:QnetNotation} is given by
 
@@ -384,7 +394,7 @@ In closed queueing networks, there is a fixed amount of customers in the network
 
 This report will only look at open queueing networks.
 
-% Pointer
+The next subsection will explain one method of solving the steady-state probabilities of open unrestricted queueing networks.
 
 \subsection{Open Unrestricted Queueing Networks}
 
@@ -399,7 +409,7 @@ Therefore, each node's effective arrival rate can be calculated by solving the f
     \lambda_i = \Lambda_i + \sum_j r_{ji} \quad \forall\; i
 \end{equation}
 
-We can now make use of Jackson's Theorem \cite{jackson57} in order to use the decomposition method to solve the queueing network.
+We can now make use of Jackson's Theorem \cite{jackson57} in order to use the decomposition method to solve the steady-state probabilities of a queueing network.
 It states that, given a network with $M$ service stations, each service station can be solved independently of the others.
 % 'solving' a service station does not make sense. I would put this in a proper
 % theorem environment and state it properly
@@ -409,8 +419,7 @@ That is, if $P(k_1, k_2, \dotsc, k_M)$ is the probability of there being $k_1$ c
     P(k_1, k_2, \dotsc, k_M) = \prod_{i=1}^M P_i(k_i)
 \end{equation}
 
-From this solving the networks is simply a case of decomposing the network into individual nodes.
-% Again: a network is not something that is solved. Reword this.
+From this finding the steady-state probabilities of the networks is simply a case of decomposing the network into individual nodes.
 Performance measures such as expected number of customers in the system and expected time spent in the system can easily be found in the same manner:
 
 \begin{equation}
@@ -421,9 +430,9 @@ Performance measures such as expected number of customers in the system and expe
     W = \sum_i {L_i \over \lambda_i}
 \end{equation}
 
-% Pointer
+The next subsection will give an example of this.
 
-\subsubsection{Example of Solving a Jackson Network} % Networks are not solved
+\subsubsection{Example of Solving Using Jackson's Theorem}
 
 Consider the queueing network shown in Figure~\ref{fig:jacksonnet}.
 
@@ -460,7 +469,6 @@ P(j)=\left\{\;\begin{array}{@{}c@{}}
 Now, if we wish to find $P(3, 1, 1)$, the probability that node 1 has 3
 customers, node 2 has 1 customer and node 3 has 1 customer, by Jackson's Theorem
 we can look at each node separately.
-% Same comment as before, have you defined P(3,1,1)?
 The above equations yield $P_1(3) \approx 0.10541$, $P_2(1) \approx 0.22172$ ane $P_3(1) \approx 0.29827$.
 And so:
 
@@ -489,7 +497,7 @@ From which we get:
     \end{split}
 \end{equation*}
 
-% Pointer
+The next subsection will discuss methods of deriving steady-state probabilities of open restricted queueing networks.
 
 \subsection{Restricted Queueing Networks}
 
@@ -523,63 +531,37 @@ Define $P_{i,j}(t)$ as there being $i$ customers in the first node, $j$ customer
 Define $P_{1b,1}(t)$ as there being 1 blocked customer in the first node, 1 customer in the second node at time $t$.
 Then we get the following difference equations:
 
-% You need to use the align environment for these equations.
-\begin{equation*}
-    P_{0,0}(t+\delta t) = (1 - \Lambda \delta t)P_{0,0}(t) + (1 - \Lambda \delta t)\mu_2 \delta t P_{0,1}(t)
-\end{equation*}
-\begin{equation*}
-    P_{1,0}(t+\delta t) = \Lambda \delta t P_{0,0}(t) + (1 - \mu_1 \delta t) P_{1,0}(t) + (1 - \mu_1 \delta t)\mu_2 \delta t P_{1,1}(t)
-\end{equation*}
-\begin{equation*}
-    P_{0,1}(t+\delta t) = (1 - \Lambda \delta t)(1 - \mu_2 \delta t)P_{0,1}(t) + \mu_1 \delta t P_{1,0}(t) + \mu_2 \delta t P_{1b,1}(t)
-\end{equation*}
-\begin{equation*}
-    P_{1,1}(t+\delta t) = (1 - \mu_1 \delta t)(1 - \mu_2 \delta t)P_{1,1}(t) + \Lambda \delta t (1 - \mu_2 \delta t) P_{0,1}(t)
-\end{equation*}
-\begin{equation*}
-    P_{1b,1}(t+\delta t) = (1 - \mu_2 \delta t)P_{1b,1}(t) + \mu_1 \delta t (1 - \mu_2 \delta t)P_{1,1}(t)
-\end{equation*}
+\begin{align*}
+    P_{0,0}(t+\delta t) &= (1 - \Lambda \delta t)P_{0,0}(t) + (1 - \Lambda \delta t)\mu_2 \delta t P_{0,1}(t)
+    P_{1,0}(t+\delta t) &= \Lambda \delta t P_{0,0}(t) + (1 - \mu_1 \delta t) P_{1,0}(t) + (1 - \mu_1 \delta t)\mu_2 \delta t P_{1,1}(t)
+    P_{0,1}(t+\delta t) &= (1 - \Lambda \delta t)(1 - \mu_2 \delta t)P_{0,1}(t) + \mu_1 \delta t P_{1,0}(t) + \mu_2 \delta t P_{1b,1}(t)
+    P_{1,1}(t+\delta t) &= (1 - \mu_1 \delta t)(1 - \mu_2 \delta t)P_{1,1}(t) + \Lambda \delta t (1 - \mu_2 \delta t) P_{0,1}(t)
+    P_{1b,1}(t+\delta t) &= (1 - \mu_2 \delta t)P_{1b,1}(t) + \mu_1 \delta t (1 - \mu_2 \delta t)P_{1,1}(t)
+\end{align*}
 
 Differentiating leaves:
 
 % Align env
-\begin{equation*}
-    \frac{d P_{0,0}(t)}{dt} = - \Lambda P_{0,0}(t) + \mu_2 P_{0,1}(t)
-\end{equation*}
-\begin{equation*}
-    \frac{d P_{1,0}(t)}{dt} = \Lambda P_{0,0}(t) - \mu_1 P_{1,0}(t) + \mu_2 P_{1,1}(t)
-\end{equation*}
-\begin{equation*}
-    \frac{d P_{0,1}(t)}{dt} = - \mu_2 P_{0,1}(t) - \Lambda P_{0,1}(t) + \mu_1 P_{1,0}(t) + \mu_2 P_{1b,1}(t)
-\end{equation*}
-\begin{equation*}
-    \frac{d P_{1,1}(t)}{dt} = - \mu_2 P_{1,1}(t) - \mu_1 P_{1,1}(t) + \Lambda P_{0,1}(t)
-\end{equation*}
-\begin{equation*}
-    \frac{d P_{1b,1}(t)}{dt} = - \mu_2 P_{1b,1}(t) + \mu_1 P_{1,1}(t)
-\end{equation*}
+\begin{align*}
+    \frac{d P_{0,0}(t)}{dt} &= - \Lambda P_{0,0}(t) + \mu_2 P_{0,1}(t)
+    \frac{d P_{1,0}(t)}{dt} &= \Lambda P_{0,0}(t) - \mu_1 P_{1,0}(t) + \mu_2 P_{1,1}(t)
+    \frac{d P_{0,1}(t)}{dt} &= - \mu_2 P_{0,1}(t) - \Lambda P_{0,1}(t) + \mu_1 P_{1,0}(t) + \mu_2 P_{1b,1}(t)
+    \frac{d P_{1,1}(t)}{dt} &= - \mu_2 P_{1,1}(t) - \mu_1 P_{1,1}(t) + \Lambda P_{0,1}(t)
+    \frac{d P_{1b,1}(t)}{dt} &= - \mu_2 P_{1b,1}(t) + \mu_1 P_{1,1}(t)
+\end{align*}
 
 We are interested in stead-state probabilities. Steady states occur when the differentials are set to 0:
 % Again all this just corresponds to the linear equations of the Markov chain.
 % Doing it this way is just long and also potentially 'shows off' that you don't
 % realise that it's just a Markov chain
 
-% Align env
-\begin{equation*}
-    \Lambda P_{0,0} = \mu_2 P_{0,1}
-\end{equation*}
-\begin{equation*}
-    \mu_1 P_{1,0} = \Lambda P_{0,0} + \mu_2 P_{1,1}
-\end{equation*}
-\begin{equation*}
-    (\Lambda + \mu_2) P_{0,1} = \mu_1 P_{1,0} + \mu_2 P_{1b,1}
-\end{equation*}
-\begin{equation*}
-    (\mu_1 + \mu_2) P_{1,1} = \Lambda P_{0,1}
-\end{equation*}
-\begin{equation*}
-    \mu_2 P_{1b,1} = \mu_1 P_{1,1}
-\end{equation*}
+\begin{align*}
+    \Lambda P_{0,0} &= \mu_2 P_{0,1}
+    \mu_1 P_{1,0} &= \Lambda P_{0,0} + \mu_2 P_{1,1}
+    (\Lambda + \mu_2) P_{0,1} &= \mu_1 P_{1,0} + \mu_2 P_{1b,1}
+    (\mu_1 + \mu_2) P_{1,1} &= \Lambda P_{0,1}
+    \mu_2 P_{1b,1} &= \mu_1 P_{1,1}
+\end{align*}
 
 We also have that all probabilities must sum to 1:
 
@@ -589,39 +571,23 @@ We also have that all probabilities must sum to 1:
 
 This set of equations can be solved to give the following expressions for the desired probabilities:
 
-\begin{equation*}
-    P_{0,0} = {{\mu_1\mu_2^2(\mu_1+\mu_2)}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
-\end{equation*}
-\begin{equation*}
-    P_{0,1} = {{\Lambda\mu_1\mu_2(\mu_1+\mu_2)}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
-\end{equation*}
-\begin{equation*}
-    P_{1,1} = {{\Lambda^2\mu_1\mu_2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
-\end{equation*}
-\begin{equation*}
-    P_{1b,1} = {{\Lambda^2\mu_1^2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
-\end{equation*}
-\begin{equation*}
-    P_{1,0} = {{\Lambda(\Lambda+\mu_1+\mu_2)\mu_2^2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
-\end{equation*}
+\begin{align*}
+    P_{0,0} &= {{\mu_1\mu_2^2(\mu_1+\mu_2)}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+    P_{0,1} &= {{\Lambda\mu_1\mu_2(\mu_1+\mu_2)}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+    P_{1,1} &= {{\Lambda^2\mu_1\mu_2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+    P_{1b,1} &= {{\Lambda^2\mu_1^2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+    P_{1,0} &= {{\Lambda(\Lambda+\mu_1+\mu_2)\mu_2^2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+\end{align*}
 
 Substituting in the problem's values given in Figure~\ref{fig:2nodesNoQs}, $\Lambda = 14$, $\mu_1 = 12$ and $\mu_2 = 10$, the probabilities become:
 
-\begin{equation*}
-    P_{0,0} \approx 0.15951
-\end{equation*}
-\begin{equation*}
-    P_{0,1} \approx 0.22332
-\end{equation*}
-\begin{equation*}
-    P_{1,1} \approx 0.14211
-\end{equation*}
-\begin{equation*}
-    P_{1b,1} \approx 0.17053
-\end{equation*}
-\begin{equation*}
-    P_{1,0} \approx 0.30452
-\end{equation*}
+\begin{align*}
+    P_{0,0} &\approx 0.15951
+    P_{0,1} &\approx 0.22332
+    P_{1,1} &\approx 0.14211
+    P_{1b,1} &\approx 0.17053
+    P_{1,0} &\approx 0.30452
+\end{align*}
 
 % All of the above corresponds to writing down \(Q=\dots\) and solving the
 % corresponding matrix equation (as is is a bit clumsy in my opinion).
@@ -692,8 +658,7 @@ The representation of the states will have to be altered to accommodate more nod
 
 
 
-
-% pointer
+An approximation method for restricted networks with downstream flows is discussed in the next section.
 
 \subsubsection{Solving Using an Approximation}
 % Title should be something like 'An approximate approach'
@@ -766,6 +731,7 @@ We now have all we require to find the effective service rate of node 1.
 Giving $\tilde{\mu}_1 \approx 11.9606772$.
 Whence we get $L_1 \approx 0.0224831$ and $W_1 \approx 0.0022483$.
 
+The next subsection will discuss an alternative to analytical methods, simulation.
 
 \subsubsection{Simulation}
 The methods described in the report can only be applied to restricted networks with downstream flows, that is no networks with cycles.
