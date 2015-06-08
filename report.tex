@@ -22,7 +22,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 
-\title{End of Year Progress Monitoring Report}
+\title{Year 1 Progress Monitoring Report}
 \author{Geraint Palmer\\{\small Supervisors: Professor Paul Harper \& Dr. Vincent Knight}}
 \date{\today}
 
@@ -36,7 +36,8 @@
 
 \section{Project Overview \& Plan}
 
-The research will investigate the workforce needs required to care for the frail and the elderly within the Aneurin Bevan University Health Board (ABUHB).
+This PhD is supervised by Professor Paul Harper and Dr Vincent Knight, and is match-funded between the University and Aneurin Bevan University Health Board (ABUHB).
+The research will investigate the workforce needs required to care for the frail and the elderly within the ABUHB.
 A systems-wide view will be considered to account for the complexity and connectedness of the healthcare system.
 Stochastic aspects will need to be captured, such as the variability in patient pathways and resource consumption.
 
@@ -135,12 +136,12 @@ The next section will give an overview of my progress so far.
 
 \section{Progress \& Learning}
 
-The Gantt chart in Figure~\ref{fig:progressgantt} shown what has been achieved
+The Gantt chart in Figure~\ref{fig:progressgantt} shows what has been achieved
 since October 2014.
 
 \begin{figure}
     \includestandalone[width=\textwidth]{images/Gantt}
-    \caption{Gantt chart illustrating work so far.}
+    \caption{Gantt chart of research project to-date.}
     \label{fig:progressgantt}
 \end{figure}
 
@@ -163,9 +164,10 @@ marking for a number of modules on the MSc programme including an object-orienta
 MA0261 and the first year module MA1003.
 I have participated in two hackathon weekends in order to develop my programming skills, and am a regular tutor for maths and stats support.
 
-The next section will review the literature relevent to the project.
+The rest of this report is structured as follows:
+Section~\ref{sec:litreview} will reviw the relevant literature, Section~\ref{sec:analyticalmodels} will discuss methods of analytically investigating queueing networks, and Section~\ref{sec:deadlock} will discuss deadlocking properties of queueing networks.
 
-\section{Literature Review}
+\section{Literature Review}\label{sec:litreviw}
 
 This literature review is structured as follows:
 The first section gives an overview of how operational research is used in healthcare.
@@ -213,7 +215,7 @@ Service disciplines may be varied, however the main ones include:
 \end{itemize}
 Note that if the last three parameters are omitted, then it is assumed that $K = \infty$, $m = \infty$, and $Z =$ FIFO.
 
-Queueing networks are simply a number of service centres with queues before
+Queueing networks comprise of a number of service centres with queues before
 them arranged into a network, with routing probabilities $r_{ij}$ such that a
 customer finishing service at node $i$ joins a queue at node $j$ with
 probability $r_{ij}$.
@@ -345,11 +347,11 @@ Comprehensive overviews are given in \cite{suttonbarto98} and \cite{szepesvari10
 
 The next section will give overviews and examples on solving the steady-state probabilities and performance measures of queueing networks.
 
-\section{Analytical Models of Open Queueing Networks}
+\section{Analytical Models of Open Queueing Networks}\label{sec:analyticalmodels}
 
 % Have a little something here.
 
-\subsection {Queueing Networks}
+\subsection{Queueing Networks}
 
 Queueing networks are a set of service centers, with or without a queueing space before them.
 They are connected by possible routes such that when a customer finishes service at one service centre he or she joins the queue of another service centre according to a probability distribution.
@@ -412,10 +414,11 @@ That is, if $P(k_1, k_2, \dotsc, k_M)$ is the probability of there being $k_1$ c
 
 \begin{equation}
     P(k_1, k_2, \dotsc, k_M) = \prod_{i=1}^M P_i(k_i)
+    \label{equ:jacksontheorem}
 \end{equation}
 
-From this finding the steady-state probabilities of the networks is simply a case of decomposing the network into individual nodes.
-Performance measures such as expected number of customers in the system and expected time spent in the system can easily be found in the same manner:
+From (\ref{equ:jacksontheorem}) finding the steady-state probabilities of the networks requires decomposing the network into individual nodes.
+Performance measures such as expected number of customers in the system and expected time spent in the system can straightforwardly be found in the same manner:
 
 \begin{equation}
     L = \sum_i L_i
@@ -445,18 +448,17 @@ The traffic equations yield the following set of simultaneous equations:
 \lambda_3 &= 0.2 \lambda_1 + 0.4 \lambda_2
 \end{align*}
 
-Which when solved give the following effective arrival rates to each node, $\lambda_1 \approx 11.354$, $\lambda_2 \approx 13.537$, $\lambda_3 \approx 7.686$.
+Solving the above equations gives following effective arrival rates to each node, $\lambda_1 \approx 11.354$, $\lambda_2 \approx 13.537$, $\lambda_3 \approx 7.686$.
 Then, using the following equations from standard queueing theory, each node can be analysed independently.
 
 \begin{equation}
 P(0) = \left[\sum_{j=0}^{c-1}{\left({^\lambda / _\mu}\right)^j\over j!}+{\left({^\lambda / _\mu}\right)^c\over c!\left(1-{\left(^\lambda / _{\mu c}\right)} \right)}\right]^{-1}
 \end{equation}
-% Have you defined P(0), P(j) etc\dots? I don't remember reading it if so.
 
 \begin{equation}
 P(j)=\left\{\;\begin{array}{@{}c@{}}
-{\left({^\lambda / _\mu}\right)^j\over j!}P(0)\text{ for }j<c\\[2mm]
-{\left({^\lambda / _\mu}\right)^j\over c!c^{j-c}}P(0)\text{ for }i\geq c\\[2mm]
+{\left(\frac{\lambda}{\mu}\right)^j\over j!}P(0)\text{ for }j<c\\[2mm]
+{\left(\frac{\lambda}{\mu}\right)^j\over c!c^{j-c}}P(0)\text{ for }i\geq c\\[2mm]
 \end{array}
 \right.
 \end{equation}
@@ -545,7 +547,7 @@ Differentiating leaves:
     \frac{d P_{1b,1}(t)}{dt} &= - \mu_2 P_{1b,1}(t) + \mu_1 P_{1,1}(t)
 \end{align*}
 
-We are interested in stead-state probabilities. Steady states occur when the differentials are set to 0:
+We are interested in steady-state probabilities. Steady states occur when the differentials are set to 0:
 % Again all this just corresponds to the linear equations of the Markov chain.
 % Doing it this way is just long and also potentially 'shows off' that you don't
 % realise that it's just a Markov chain
@@ -615,7 +617,7 @@ The state space for this network is defined as follows:
     S = \{(i,j)\in\mathbb{N}^{(n_1+1\times n_2+2)}| 0 \leq i + j \leq n_1 + n_2 + 2\}
 \end{equation*}
 
-Where $i$ denotes the number of customers waiting or in service at node 1, and $j$ denotes the number of customers waiting or in service at node 2 plus the number of customers at node 1 blocked from entering node 2.
+where $i$ denotes the number of customers waiting or in service at node 1, and $j$ denotes the number of customers waiting or in service at node 2 plus the number of customers at node 1 blocked from entering node 2.
 The transition rates $q_{(i_1, j_1),(i_2, j_2)}$, the rate at which the system transitions from state $(i_1, j_2)$ to state $(i_2, j_2)$, are defined as follows:
 
 \begin{equation}
@@ -642,7 +644,7 @@ The transition rates $q_{(i_1, j_1),(i_2, j_2)}$, the rate at which the system t
   \end{matrix*} \right.
 \end{equation}
 
-Where $\delta = (i_2-i_1, j_2-j_1)$.
+where $\delta = (i_2-i_1, j_2-j_1)$.
 
 The transition matrix is constructed numerically using Python, discretized, and then solved by finding the eigenvectors corresponding to the eigenvalue 1.
 
@@ -655,8 +657,7 @@ The representation of the states will have to be altered to accommodate more nod
 
 An approximation method for restricted networks with downstream flows is discussed in the next section.
 
-\subsubsection{Solving Using an Approximation}
-% Title should be something like 'An approximate approach'
+\subsubsection{An Approximate Approach}
 
 An approximation method was developed by \cite{takahashi80}, and developed and implemented in \cite{koizumietal05} for queueing networks with blocking with no intermediate queues.
 This approximation makes use of the effective service time, illustrated in Figure~\ref{fig:effectiveservicetime}.
@@ -706,7 +707,7 @@ First, we solve the traffic equations in order to obtain the effective arrival r
     \lambda_2 = \Lambda_2 + r_{12} \lambda_2
 \end{equation*}
 
-Yielding $\lambda_1 = 10$ and $\lambda_2 = 9$.
+yielding $\lambda_1 = 10$ and $\lambda_2 = 9$.
 
 We begin at node 2, as it is furthest downstream, it has no immediate downstream nodes.
 Therefore its effective service rate is the same as its service rate.
@@ -723,7 +724,7 @@ We now have all we require to find the effective service rate of node 1.
     \end{split}
 \end{equation*}
 
-Giving $\tilde{\mu}_1 \approx 11.9606772$.
+giving $\tilde{\mu}_1 \approx 11.9606772$.
 Whence we get $L_1 \approx 0.0224831$ and $W_1 \approx 0.0022483$.
 
 The next subsection will discuss an alternative to analytical methods, simulation.
@@ -737,7 +738,7 @@ A simulation framework has been developed in Python that handles restricted and 
 
 
 
-\section{Deadlocking Properties of Open Restircted Queueing Networks}
+\section{Deadlocking Properties of Open Restircted Queueing Networks}\label{sec:deadlock}
 
 This section will define and discuss the properties and detection of deadlock in queueing networks.
 Throughout the section, when discussing queueing networks, it is assumed that
@@ -1056,7 +1057,7 @@ Also note that if a service-station subgraph $d_i(t)$ contains edges, then there
 This does not necassarily mean there is deadlock.
 
 
-\subsection{Theorem}
+\subsection{Results on the State Digraph}
 
 \begin{theorem}
 A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
@@ -1154,7 +1155,7 @@ Therefore, we only need to check the vertex's paths to sinks when an edge is add
 \subsection{Markov Chain Model}
 
 It is interesting to build an analytical model of the system's behaviour to deadlock.
-As a Markov chain model the deadlocking state is an absorbing state, and so any queueing network that can experience deadlock is guaranteed to experience deadlock.
+As a Markov chain model, the deadlocking state is an absorbing state, and so any queueing network that can experience deadlock is guaranteed to experience deadlock.
 
 We can however find the expected time until deadlock is reached.
 It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & V \end{smallmatrix} \bigr)$ then the expected number of time steps until absorbtion starting from state $i$ is the $i\text{th}$ element of the vector
@@ -1178,7 +1179,7 @@ Once a customer has finished service he rejoins the queue with probability $r_{1
 State space:
         \[S = \{i\in\mathbb{N}| 0 \leq i \leq n + 1
         \}\cup\{-1\}\]
-Where \(i\) denotes number of individuals in service or waiting.
+where \(i\) denotes number of individuals in service or waiting.
 
 If we define $\delta = i_2 - i_1$ for all $i_k \in S | i_k \geq 0$, then the transitions are given by:
 
@@ -1234,13 +1235,13 @@ All routing possibilities except self loops are possible, where the routing prob
         \[S = \{(i,j)\in\mathbb{N}^{(n_1+2\times n_2+2)}| 0 \leq i + j \leq n_1 + n_2 + 2
         \}\cup\{(-1, -1)\}\]
 
-        Where \(i\) denotes number of individuals:
+        where \(i\) denotes number of individuals:
             \begin{itemize}
                 \item In service or waiting at the first node.
                 \item Occupying a server but having finished service at the
                     second node waiting to join the first
             \end{itemize}
-        Where \(j\) denotes number of individuals:
+        where \(j\) denotes number of individuals:
             \begin{itemize}
                 \item In service or waiting at the second node.
                 \item Occupying a server but having finished service at the
