@@ -2,7 +2,11 @@
 
 \usepackage{fullpage}
 \usepackage{parskip}
-\usepackage{hyperref}
+\usepackage[colorlinks = true,
+            linkcolor = black,
+            urlcolor  = blue,
+            citecolor = black,
+            anchorcolor = black]{hyperref}
 \usepackage{setspace}
 \usepackage{mathtools}
 \usepackage{tikz}
@@ -32,8 +36,6 @@
 \maketitle
 
 
-
-
 \section{Project Overview \& Plan}
 
 This PhD is supervised by Professor Paul Harper and Dr Vincent Knight, and is match-funded between the University and Aneurin Bevan University Health Board (ABUHB).
@@ -55,7 +57,7 @@ An understanding of the situation could alleviate this pressure.
 
 The next subsection will discuss how patient flows through the healthcare system will be analysed.
 
-\resultssubsection{Patient Flows}
+\subsection{Patient Flows}
 
 Queueing theory, and in particular queueing networks are techniques used to model the stochastic flow of customers around a system of service nodes.
 Note that throughout this report the terms node, service centre, service node and service station will be used interchangeably.
@@ -148,15 +150,15 @@ since October 2014.
 I have participated, or will be participating in the following activities:
 \begin{itemize}
     \item Oct 2014: Gave a talk on my MSc project at a SWORDS event, Cardiff.
-    \item Feb 2015: Gave a talk at \href{http://python-namibia.org}{Python Namibia 2015} at the University of Namibia in Windhoek.
+    \item Feb 2015: Gave a talk at \href{http://python-namibia.org}{Python Namibia 2015} at the University of Namibia, Windhoek.
     \item Mar 2015: NATCOR Stochastic Modelling course, Lancaster.
     \item Apr 2015: Data Mining course, Cardiff.
-    \item May 2015: Gave a lightning talk on Linear Programming at the \href{http://www.youtube.com/watch?v=2NMp6WsK-QI&t=67m14s}{'Developing Mathematical Models in Healthcare'} seminar in Cardiff.
-    \item May 2015: Gave a talk at the Wales Mathematics Colloquium at Gregynog.
-    \item June 2015: Part of the organising committee of \href{\url{http://2015.djangocon.eu}{DjangoCon Europe 2015}, also gave a lightning talk at the event.
-    \item June 2015: Will be part of the \href{https://www.eventsforce.net/NLIAH/media/uploaded/EVNLIAH/event_697/1000%20Lives%20Improvement%20National%20Learning%20Event%20-%2017%20June%202015%20-%20AGENDA%20(1)%20(DRAFT).pdf}{1000 Lives National Learning Event} with the ABCi
-    \item July 2015: Will be giving a talk at \href{http://www.euro2015.org}{EURO 2015}, the European Conference on Operational Research, in Glasgow.
-    \item Sept 2015: Am co-stream-organisers on the Stochastic Modelling stream of the \href{\url{http://www.theorsociety.com/yor19}{Young OR 19} conference in Birmingham.
+    \item May 2015: Gave a lightning talk on Linear Programming at the \href{http://www.youtube.com/watch?v=2NMp6WsK-QI&t=67m14s}{'Developing Mathematical Models in Healthcare'} seminar, Cardiff.
+    \item May 2015: Gave a talk at the Wales Mathematics Colloquium, Gregynog.
+    \item June 2015: Part of the organising committee of \href{http://2015.djangocon.eu}{DjangoCon Europe 2015}, also gave a lightning talk at the event, Cardiff.
+    \item June 2015: Will be part of the \href{https://www.eventsforce.net/NLIAH/media/uploaded/EVNLIAH/event_697/1000%20Lives%20Improvement%20National%20Learning%20Event%20-%2017%20June%202015%20-%20AGENDA%20(1)%20(DRAFT).pdf}{1000 Lives National Learning Event} with the ABCi, Cardiff.
+    \item July 2015: Will be giving a talk at \href{http://www.euro2015.org}{EURO 2015}, the European Conference on Operational Research, Glasgow.
+    \item Sept 2015: Am co-stream-organisers on the Stochastic Modelling stream of the \href{http://www.theorsociety.com/yor19}{Young OR 19} conference, Birmingham.
 \end{itemize}
 
 In addition to the above, I have been involved in teaching, assessing and
@@ -167,7 +169,7 @@ I have participated in two hackathon weekends in order to develop my programming
 The rest of this report is structured as follows:
 Section~\ref{sec:litreview} will reviw the relevant literature, Section~\ref{sec:analyticalmodels} will discuss methods of analytically investigating queueing networks, and Section~\ref{sec:deadlock} will discuss deadlocking properties of queueing networks.
 
-\section{Literature Review}\label{sec:litreviw}
+\section{Literature Review}\label{sec:litreview}
 
 This literature review is structured as follows:
 The first section gives an overview of how operational research is used in healthcare.
@@ -529,22 +531,22 @@ Define $P_{1b,1}(t)$ as there being 1 blocked customer in the first node, 1 cust
 Then we get the following difference equations:
 
 \begin{align*}
-    P_{0,0}(t+\delta t) &= (1 - \Lambda \delta t)P_{0,0}(t) + (1 - \Lambda \delta t)\mu_2 \delta t P_{0,1}(t)
-    P_{1,0}(t+\delta t) &= \Lambda \delta t P_{0,0}(t) + (1 - \mu_1 \delta t) P_{1,0}(t) + (1 - \mu_1 \delta t)\mu_2 \delta t P_{1,1}(t)
-    P_{0,1}(t+\delta t) &= (1 - \Lambda \delta t)(1 - \mu_2 \delta t)P_{0,1}(t) + \mu_1 \delta t P_{1,0}(t) + \mu_2 \delta t P_{1b,1}(t)
-    P_{1,1}(t+\delta t) &= (1 - \mu_1 \delta t)(1 - \mu_2 \delta t)P_{1,1}(t) + \Lambda \delta t (1 - \mu_2 \delta t) P_{0,1}(t)
-    P_{1b,1}(t+\delta t) &= (1 - \mu_2 \delta t)P_{1b,1}(t) + \mu_1 \delta t (1 - \mu_2 \delta t)P_{1,1}(t)
+    P_{0,0}(t+\delta t) &= (1 - \Lambda \delta t)P_{0,0}(t) + (1 - \Lambda \delta t)\mu_2 \delta t P_{0,1}(t)\\
+    P_{1,0}(t+\delta t) &= \Lambda \delta t P_{0,0}(t) + (1 - \mu_1 \delta t) P_{1,0}(t) + (1 - \mu_1 \delta t)\mu_2 \delta t P_{1,1}(t)\\
+    P_{0,1}(t+\delta t) &= (1 - \Lambda \delta t)(1 - \mu_2 \delta t)P_{0,1}(t) + \mu_1 \delta t P_{1,0}(t) + \mu_2 \delta t P_{1b,1}(t)\\
+    P_{1,1}(t+\delta t) &= (1 - \mu_1 \delta t)(1 - \mu_2 \delta t)P_{1,1}(t) + \Lambda \delta t (1 - \mu_2 \delta t) P_{0,1}(t)\\
+    P_{1b,1}(t+\delta t) &= (1 - \mu_2 \delta t)P_{1b,1}(t) + \mu_1 \delta t (1 - \mu_2 \delta t)P_{1,1}(t)\\
 \end{align*}
 
 Differentiating leaves:
 
 % Align env
 \begin{align*}
-    \frac{d P_{0,0}(t)}{dt} &= - \Lambda P_{0,0}(t) + \mu_2 P_{0,1}(t)
-    \frac{d P_{1,0}(t)}{dt} &= \Lambda P_{0,0}(t) - \mu_1 P_{1,0}(t) + \mu_2 P_{1,1}(t)
-    \frac{d P_{0,1}(t)}{dt} &= - \mu_2 P_{0,1}(t) - \Lambda P_{0,1}(t) + \mu_1 P_{1,0}(t) + \mu_2 P_{1b,1}(t)
-    \frac{d P_{1,1}(t)}{dt} &= - \mu_2 P_{1,1}(t) - \mu_1 P_{1,1}(t) + \Lambda P_{0,1}(t)
-    \frac{d P_{1b,1}(t)}{dt} &= - \mu_2 P_{1b,1}(t) + \mu_1 P_{1,1}(t)
+    \frac{d P_{0,0}(t)}{dt} &= - \Lambda P_{0,0}(t) + \mu_2 P_{0,1}(t)\\
+    \frac{d P_{1,0}(t)}{dt} &= \Lambda P_{0,0}(t) - \mu_1 P_{1,0}(t) + \mu_2 P_{1,1}(t)\\
+    \frac{d P_{0,1}(t)}{dt} &= - \mu_2 P_{0,1}(t) - \Lambda P_{0,1}(t) + \mu_1 P_{1,0}(t) + \mu_2 P_{1b,1}(t)\\
+    \frac{d P_{1,1}(t)}{dt} &= - \mu_2 P_{1,1}(t) - \mu_1 P_{1,1}(t) + \Lambda P_{0,1}(t)\\
+    \frac{d P_{1b,1}(t)}{dt} &= - \mu_2 P_{1b,1}(t) + \mu_1 P_{1,1}(t)\\
 \end{align*}
 
 We are interested in steady-state probabilities. Steady states occur when the differentials are set to 0:
@@ -553,11 +555,11 @@ We are interested in steady-state probabilities. Steady states occur when the di
 % realise that it's just a Markov chain
 
 \begin{align*}
-    \Lambda P_{0,0} &= \mu_2 P_{0,1}
-    \mu_1 P_{1,0} &= \Lambda P_{0,0} + \mu_2 P_{1,1}
-    (\Lambda + \mu_2) P_{0,1} &= \mu_1 P_{1,0} + \mu_2 P_{1b,1}
-    (\mu_1 + \mu_2) P_{1,1} &= \Lambda P_{0,1}
-    \mu_2 P_{1b,1} &= \mu_1 P_{1,1}
+    \Lambda P_{0,0} &= \mu_2 P_{0,1}\\
+    \mu_1 P_{1,0} &= \Lambda P_{0,0} + \mu_2 P_{1,1}\\
+    (\Lambda + \mu_2) P_{0,1} &= \mu_1 P_{1,0} + \mu_2 P_{1b,1}\\
+    (\mu_1 + \mu_2) P_{1,1} &= \Lambda P_{0,1}\\
+    \mu_2 P_{1b,1} &= \mu_1 P_{1,1}\\
 \end{align*}
 
 We also have that all probabilities must sum to 1:
@@ -569,21 +571,21 @@ We also have that all probabilities must sum to 1:
 This set of equations can be solved to give the following expressions for the desired probabilities:
 
 \begin{align*}
-    P_{0,0} &= {{\mu_1\mu_2^2(\mu_1+\mu_2)}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
-    P_{0,1} &= {{\Lambda\mu_1\mu_2(\mu_1+\mu_2)}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
-    P_{1,1} &= {{\Lambda^2\mu_1\mu_2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
-    P_{1b,1} &= {{\Lambda^2\mu_1^2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
-    P_{1,0} &= {{\Lambda(\Lambda+\mu_1+\mu_2)\mu_2^2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}
+    P_{0,0} &= {{\mu_1\mu_2^2(\mu_1+\mu_2)}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}\\
+    P_{0,1} &= {{\Lambda\mu_1\mu_2(\mu_1+\mu_2)}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}\\
+    P_{1,1} &= {{\Lambda^2\mu_1\mu_2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}\\
+    P_{1b,1} &= {{\Lambda^2\mu_1^2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}\\
+    P_{1,0} &= {{\Lambda(\Lambda+\mu_1+\mu_2)\mu_2^2}\over{\mu_2^3(\Lambda+\mu_1) + \mu_2^2(\Lambda+\mu_1)^2 + \mu_2(\Lambda+\mu_1)(\Lambda\mu_1) + \Lambda^2\mu_1^2}}\\
 \end{align*}
 
 Substituting in the problem's values given in Figure~\ref{fig:2nodesNoQs}, $\Lambda = 14$, $\mu_1 = 12$ and $\mu_2 = 10$, the probabilities become:
 
 \begin{align*}
-    P_{0,0} &\approx 0.15951
-    P_{0,1} &\approx 0.22332
-    P_{1,1} &\approx 0.14211
-    P_{1b,1} &\approx 0.17053
-    P_{1,0} &\approx 0.30452
+    P_{0,0} &\approx 0.15951\\
+    P_{0,1} &\approx 0.22332\\
+    P_{1,1} &\approx 0.14211\\
+    P_{1b,1} &\approx 0.17053\\
+    P_{1,0} &\approx 0.30452\\
 \end{align*}
 
 % All of the above corresponds to writing down \(Q=\dots\) and solving the
