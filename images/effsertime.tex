@@ -16,18 +16,18 @@
 \draw[thick, -triangle 90] (12, 1.75) -- (12, 0);
 \draw[thick, -triangle 90] (16, 1.75) -- (16, 0);
 
-\node[align=center, text width=150] at (0, 2) {\tiny Arrive at node $i$};
-\node[align=center, text width=150] at (4, 2) {\tiny Begin service at node $i$};
-\node[align=center, text width=150] at (8, 2) {\tiny End service at station $i$};
-\node[align=center, text width=150] at (12, 2) {\tiny Arrive \& begin service at node $i+1$};
-\node[align=center, text width=150] at (16, 2) {\tiny Depart node $i+1$};
+\node[align=center, text width=150] at (0, 2) {\footnotesize Arrive at node $i$};
+\node[align=center, text width=150] at (4, 2) {\footnotesize Begin service at node $i$};
+\node[align=center, text width=150] at (8, 2) {\footnotesize End service at station $i$};
+\node[align=center, text width=150] at (12, 2.3) {\footnotesize Arrive \& begin \\ \footnotesize service at node $i+1$};
+\node[align=center, text width=150] at (16, 2) {\footnotesize Depart node $i+1$};
 
-\draw[dashed,triangle 90 - triangle 90] (0, 0.75) -- (4, 0.75) node [pos=0.5, above] {\tiny Waiting time at $i$};
-\draw[dashed,triangle 90 - triangle 90] (4, 0.75) -- (8, 0.75) node [pos=0.5, above] {\tiny Service time at $i$};
-\draw[dashed,triangle 90 - triangle 90] (8, 0.75) -- (12, 0.75) node [pos=0.5, above] {\tiny Time blocked at $i$};
-\draw[dashed,triangle 90 - triangle 90] (12, 0.75) -- (16, 0.75) node [pos=0.5, above] {\tiny Service time at $i+1$};
-\draw[dashed,triangle 90 - triangle 90] (4, -0.75) -- (12, -0.75) node [pos=0.5, above] {\tiny Effective service time at $i$};
-\draw[dashed,triangle 90 - triangle 90] (12, -0.75) -- (16, -0.75) node [pos=0.5, above] {\tiny Service time at $i+1$};
+\draw[dashed,triangle 90 - triangle 90] (0, 0.75) -- (4, 0.75) node [pos=0.5, above] {\footnotesize Waiting time at $i$};
+\draw[dashed,triangle 90 - triangle 90] (4, 0.75) -- (8, 0.75) node [pos=0.5, above] {\footnotesize Service time at $i$};
+\draw[dashed,triangle 90 - triangle 90] (8, 0.75) -- (12, 0.75) node [pos=0.5, above] {\footnotesize Time blocked at $i$};
+\draw[dashed,triangle 90 - triangle 90] (12, 0.75) -- (16, 0.75) node [pos=0.5, above] {\footnotesize Service time at $i+1$};
+\draw[dashed,triangle 90 - triangle 90] (4, -0.75) -- (12, -0.75) node [pos=0.5, above] {\footnotesize Effective service time at $i$};
+\draw[dashed,triangle 90 - triangle 90] (12, -0.75) -- (16, -0.75) node [pos=0.5, above] {\footnotesize Service time at $i+1$};
 
 
 \end{tikzpicture}

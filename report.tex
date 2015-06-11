@@ -509,7 +509,7 @@ These networks are not as simple to solve as open unrestricted queueing networks
 These become even more difficult to solve when there exist feedback loops in the networks.
 We will concentrate on restricted networks with feedforward flows only.
 
-\subsubsection{Solving using Differential Difference}
+\subsubsection{Using Differential Difference}
 % These are actually 'Differential difference' equations and really just
 % end up corresponding to the linear equations you solve for the corresponding
 % markov chain (it's just a markov chain). I don't really like even referring to
@@ -519,7 +519,7 @@ We will concentrate on restricted networks with feedforward flows only.
 This method was used in \cite{baber08} to investigate the behaviour of queues with blocking.
 In this method equations are derived for every state of the queueing network, and so networks with very many states become very difficult to solve.
 This method is entirely equivalent to the method decribed in the next subsection, Markov chains.
-In this case, we are modelling the queue as a Markov chain and solving from first principles, rather than manipulating transition matrices in the next subsection.
+In this case, we are modelling the queue as a Markov chain and solving from first principals, rather than manipulating transition matrices in the next subsection.
 
 In this example, a network with only two single-server service centres, and no queueing space, is solved.
 This queueing network is shown in Figure~\ref{fig:2nodesNoQs}.
@@ -595,7 +595,7 @@ Substituting in the problem's values given in Figure~\ref{fig:2nodesNoQs}, $\Lam
 % All of the above corresponds to writing down \(Q=\dots\) and solving the
 % corresponding matrix equation (as is is a bit clumsy in my opinion).
 
-\subsubsection{Solving using Markov Chains}
+\subsubsection{Using Markov Chain Transition Matrices}
 % This should not really be a separate section, the above is the same as this
 % but just with clumsy notation.
 % Also you do not 'solve using Markov Chains' you 'obtain the steady state
@@ -605,7 +605,8 @@ Substituting in the problem's values given in Figure~\ref{fig:2nodesNoQs}, $\Lam
 
 Queueing networks with larger state-spaces can be solved numerically.
 The computations of the transition matrices and matrix inversions are all done using Python.
-% Do we care about this?
+Note again that this is the same model used in the previous subsection, however here we are making use of matrix algebra rather than solving from first principals
+
 The queueing network solved using the difference equations method can be generalised to include finite queues before each server.
 This network is shown in Figure~\ref{fig:2nodesQs}.
 
