@@ -22,6 +22,7 @@
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage[ruled]{algorithm2e}
+\usepackage{listings}
 
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
@@ -508,7 +509,7 @@ These networks are not as simple to solve as open unrestricted queueing networks
 These become even more difficult to solve when there exist feedback loops in the networks.
 We will concentrate on restricted networks with feedforward flows only.
 
-\subsubsection{Solving using Difference Equations}
+\subsubsection{Solving using Differential Difference}
 % These are actually 'Differential difference' equations and really just
 % end up corresponding to the linear equations you solve for the corresponding
 % markov chain (it's just a markov chain). I don't really like even referring to
@@ -517,6 +518,8 @@ We will concentrate on restricted networks with feedforward flows only.
 % difference equations\dots (but again this whole section is not great\dots)
 This method was used in \cite{baber08} to investigate the behaviour of queues with blocking.
 In this method equations are derived for every state of the queueing network, and so networks with very many states become very difficult to solve.
+This method is entirely equivalent to the method decribed in the next subsection, Markov chains.
+In this case, we are modelling the queue as a Markov chain and solving from first principles, rather than manipulating transition matrices in the next subsection.
 
 In this example, a network with only two single-server service centres, and no queueing space, is solved.
 This queueing network is shown in Figure~\ref{fig:2nodesNoQs}.
@@ -741,7 +744,7 @@ A simulation framework has been developed in Python that handles restricted and 
 The framework uses the three-phase-simulation-approach described in \cite{robinson07}.
 This is shown in Figure~\ref{fig:3phase}.
 
-\begin{figure}
+\begin{figure}[H]
     \begin{center}
     \includestandalone[width=0.3\textwidth]{images/3phaseapproach}
     \caption{The Three Phase Simulation Approach \cite{robinson07}}
@@ -759,30 +762,103 @@ C-events correspond to a customer starting service, or a customer being released
 
 The table below shows some of the possible conditional events that arise from other events.
 
-\begin{tabular}{ | c | c | p{7.4cm} | }
+\begin{tabular}{ | c | c | p{7.8cm} | }
     \hline
-    Event & Conditional Events Arising & Example Reason \\
+    \textbf{\textit{Event}} & \textbf{\textit{Conditional Event}} & \textbf{\textit{Reason}} \\
     \hline
     External arrival & Nothing & The customer arrives and needs to queue before starting service. \\
     \hline
     External arrival & Start service & The customer arrives and can begin service immediately as there is no queue. \\
     \hline
-    Finish service & Release \& move customer & A customer finishes service, there is sufficient queueing space at the next node, and so moves. \\
+    Finish service & Release/Move customer & A customer finishes service, there is sufficient queueing space at the next node, and so moves. \\
     \hline
     Finish service & Nothing & A customer finishes service, but there is insufficient queueing space at the next node, and so the customer becomes blocked. \\
     \hline
-    Release \& move customer & Start service & A customer moves to the next node and can begin service immediately as there is no queue. \\
+    Release/Move customer & Start service & A customer moves to the next node and can begin service immediately as there is no queue. \\
     \hline
-    Release \& move customer & Start service & A customer moves from the current node, allowing a customer at the front of the queue to start service. \\
+    Release/Move customer & Start service & A customer moves from the current node, allowing a customer at the front of the queue to start service. \\
     \hline
-    Release \& move customer & Release \& move customer & A customer moves from the current node, allowing enough queueing space from a blocked customer to now enter that node. \\
+    Release/Move customer & Release/Move customer & A customer moves from the current node, allowing enough queueing space from a blocked customer to now enter that node. \\
     \hline
-    Release \& move customer & Nothing & A customer moves to the next node where there is a queue, and so service does not start immediately. There is no one in the current node's queue to start service. \\
+    Release/Move customer & Nothing & A customer moves to the next node where there is a queue, and so service does not start immediately. There is no one in the current node's queue to start service. \\
     \hline
-    Release \& move customer & Nothing & A customer exits the system, and there is no queue at the current node and so no-one starts service. \\
+    Release/Move customer & Nothing & A customer exits the system, and there is no queue at the current node and so no-one starts service. \\
     \hline
-\end{tabular}
+\end{tabular}\\
 
+Figure~\ref{fig:codestructure} illustrates the general structure of the objects and classes of the simulation code.
+
+There is one \texttt{Simulation} object.
+This contains all the global variables used, information about the queueing network itself, and the methods that run the simulation and write data to file.
+It also contains one \texttt{ArrivalNode}, one \texttt{ExitNode}, and as many \texttt{Nodes} the queueing network requires.
+
+The \texttt{ArrivalNode} object spawns new \texttt{Individuals}, that is customers arriving externally.
+They never remain here, immediately being released to the relevant node when spawned, or lost to the system if there is not enough queueing capacity at that node.
+
+The \texttt{ExitNode} is a dummy node, that simply acts as a bucket to send and store \texttt{Individuals} that leave the system.
+
+The Nodes are where \texttt{Individuals} queue for service, recieve service, and remain when blocked.
+Nodes contain all the methods required to give \texttt{Individuals} \texttt{arrival\_date}, \texttt{service\_start\_date}, \texttt{service\_end\_date}, \texttt{service\_time} and \texttt{exit\_date}.
+This object also contains all methods to move \texttt{Individuals} from \texttt{Node} to \texttt{Node}, block \texttt{Individuals}, and write the \texttt{DataRecords} of \texttt{Individuals}.
+
+The \texttt{Individual} objects are the entities that are traversing the queueing network, waiting, being served, getting blocked, transitioning from node to node, and being served.
+They contain a store of every \texttt{DataRecord} that \texttt{Individual} has had written.
+
+Each \texttt{DataRecord} contains all the information about one \texttt{Individual}'s visit to one \texttt{Node}.
+
+
+\begin{figure}[H]
+    \includestandalone[width=\textwidth]{images/codestructure}
+    \caption{Structure of objects and classes of the simulation code.}
+    \label{fig:codestructure}
+\end{figure}
+
+The following pseudocode decribes the main loop of the simulation:
+
+\begin{lstlisting}
+while current_time < max_time:
+    next_active_node.have_event()
+    for all nodes:
+        update next event date
+    next_active_node = node with closest next_event_date
+    current_time = next_active_node.next_event_date
+\end{lstlisting}
+
+Here the method \texttt{have\_event()} contains most the simulation process.
+If the \texttt{next\_active\_node} is an \texttt{ArrivalNode} then the following pseudocode describes the method:
+
+\begin{lstlisting}
+create new ind = Individual()
+if ind.next_node has enough queueing capacity:
+    join queue at next_node
+else:
+    ind lost to system
+\end{lstlisting}
+
+\texttt{ExitNode} will never have an event, as its \texttt{next\_event\_date} is always set to infinity.
+For all other \texttt{Nodes} the \texttt{have\_event()} method is described in the pseudocode below:
+
+\begin{lstlisting}
+next_individual = individual that is finishing service
+if next_individual.next_node has enough queueing space:
+    release(next_individual)
+else:
+    block next_individual
+\end{lstlisting}
+
+where the \texttt{release()} method acts as follows:
+
+\begin{lstlisting}
+    move next_individual to next_node
+    if next_node.queue_length == 0:
+        start service
+    if any blocked individuals need to join this queue:
+        release(blocked_individual)
+    if individual waiting to start service at this node:
+        start service
+\end{lstlisting}
+
+Notice that the \texttt{release()} method is recursive, and so the process of unblocking individuals can continue until no more individuals can be unblocked.
 
 
 \section{Deadlocking Properties of Open Restircted Queueing Networks}\label{sec:deadlock}

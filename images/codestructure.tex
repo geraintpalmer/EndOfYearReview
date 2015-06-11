@@ -1,0 +1,29 @@
+\documentclass{standalone}
+% \documentclass{article}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  % Classes
+  \node[align=center] (sim) [style={minimum size=2.8cm, text width=1.5cm, draw=black,fill=black!10,text=black,shape=circle}] at (5, 10) {Simulation};
+  \node[align=center] (arnod) [style={minimum size=2.8cm, text width=1.5cm, draw=black,fill=black!10,text=black,shape=circle}] at (10, 5) {Exit Node};
+  \node[align=center] (node) [style={minimum size=2.8cm, text width=1.5cm, draw=black,fill=black!10,text=black,shape=circle}] at (10, 10) {Node};
+  \node[align=center] (exnod) [style={minimum size=2.8cm, text width=1.5cm, draw=black,fill=black!10,text=black,shape=circle}] at (10, 15) {Arrival Node};
+  \node[align=center] (ind) [style={minimum size=2.8cm, text width=1.5cm, draw=black,fill=black!10,text=black,shape=circle}] at (15, 10) {Individual};
+  \node[align=center] (datarec) [style={minimum size=2.8cm, text width=1.5cm, draw=black,fill=black!10,text=black,shape=circle}] at (20, 10) {Data Record};
+
+  % Routes
+  \draw[thick, -triangle 90] (datarec) -- (ind);
+  \draw[thick, -triangle 90] (ind) -- (arnod);
+  \draw[thick, -triangle 90] (ind) -- (node);
+  \draw[thick, -triangle 90] (ind) -- (exnod);
+  \draw[thick, -triangle 90] (arnod) -- (sim);
+  \draw[thick, -triangle 90] (node) -- (sim);
+  \draw[thick, -triangle 90] (exnod) -- (sim);
+
+\end{tikzpicture}
+
+\end{document}
