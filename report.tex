@@ -13,6 +13,7 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric}
 \usepackage{standalone}
 \usepackage{float}
 \usepackage{caption}
@@ -78,7 +79,7 @@ Using results from the theory of Jackson networks \cite{jackson57}, performance 
 This model will then be extended to include blocking between nodes so that the model represents reality, in which patients may be unable to progress to their next destination due to lack of capacity.
 Again performance measures and steady-state probabilities will be obtained.
 
-A simulation framework has been written in Python \cite{http://www.python.org/},
+A simulation framework has been written in Python (\url{http://www.python.org/}),
 analytic results will be compared to results obtained through simulation.
 A user friendly Django application of this simulation will be built which will
 feature simple parameter inputs and graphical outputs.
@@ -732,11 +733,55 @@ Whence we get $L_1 \approx 0.0224831$ and $W_1 \approx 0.0022483$.
 The next subsection will discuss an alternative to analytical methods, simulation.
 
 \subsubsection{Simulation}
-The methods described in the report can only be applied to restricted networks with downstream flows, that is no networks with cycles.
+The methods described in the report can only be applied to restricted networks with downstream flows, that is, no networks with cycles.
 This is due to the breakdown of Markovian arrivals and deadlock possibilities.
 In order to investigate networks with these features computer simulation will have to be used.
 
 A simulation framework has been developed in Python that handles restricted and unrestricted open queueing networks of any architecture with multiple classes of patients and a variety of service distributions.
+The framework uses the three-phase-simulation-approach described in \cite{robinson07}.
+This is shown in Figure~\ref{fig:3phase}.
+
+\begin{figure}
+    \begin{center}
+    \includestandalone[width=0.3\textwidth]{images/3phaseapproach}
+    \caption{The Three Phase Simulation Approach \cite{robinson07}}
+    \label{fig:3phase}
+    \end{center}
+\end{figure}
+
+In the A-phase the simulation clock is moved to the time of the next event.
+In the B-phase all scheduled events for that time are carried out.
+In the C-phase we check whether some of the events just carried out has caused any more conditional events to need to occur, and these are carried out.
+At the decision node 'Any more C?', we check whether the C-events that just occured has caused any more C events to need to occur.
+
+In the simulation framework built, B-events correspond to either an external arrival, or a customer finishing service.
+C-events correspond to a customer starting service, or a customer being released from a node.
+
+The table below shows some of the possible conditional events that arise from other events.
+
+\begin{tabular}{ | c | c | p{7.4cm} | }
+    \hline
+    Event & Conditional Events Arising & Example Reason \\
+    \hline
+    External arrival & Nothing & The customer arrives and needs to queue before starting service. \\
+    \hline
+    External arrival & Start service & The customer arrives and can begin service immediately as there is no queue. \\
+    \hline
+    Finish service & Release \& move customer & A customer finishes service, there is sufficient queueing space at the next node, and so moves. \\
+    \hline
+    Finish service & Nothing & A customer finishes service, but there is insufficient queueing space at the next node, and so the customer becomes blocked. \\
+    \hline
+    Release \& move customer & Start service & A customer moves to the next node and can begin service immediately as there is no queue. \\
+    \hline
+    Release \& move customer & Start service & A customer moves from the current node, allowing a customer at the front of the queue to start service. \\
+    \hline
+    Release \& move customer & Release \& move customer & A customer moves from the current node, allowing enough queueing space from a blocked customer to now enter that node. \\
+    \hline
+    Release \& move customer & Nothing & A customer moves to the next node where there is a queue, and so service does not start immediately. There is no one in the current node's queue to start service. \\
+    \hline
+    Release \& move customer & Nothing & A customer exits the system, and there is no queue at the current node and so no-one starts service. \\
+    \hline
+\end{tabular}
 
 
 
