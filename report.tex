@@ -23,6 +23,7 @@
 \usepackage{amsthm}
 \usepackage[ruled]{algorithm2e}
 \usepackage{listings}
+\usepackage{array}
 
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
@@ -761,11 +762,13 @@ At the decision node `Any more C?', we check whether the C-events that just occu
 In the simulation framework built, B-events correspond to either an external arrival, or a customer finishing service.
 C-events correspond to a customer starting service, or a customer being released from a node.
 
-The table below shows some of the possible conditional events that arise from other events.
+Table~\ref{tab:eventtriggers} below shows some of the possible conditional events that arise from other events.
 
-\begin{tabular}{ | c | c | p{7.8cm} | }
+ \begin{table}[H]
+ \begin{center}
+\begin{tabular}{ | p{4cm} | p{4cm} | p{7.8cm} | }
     \hline
-    \textbf{\textit{Event}} & \textbf{\textit{Conditional Event}} & \textbf{\textit{Reason}} \\
+    \begin{center}\textbf{\textit{Event}}\end{center} & \begin{center}\textbf{\textit{Conditional Event}}\end{center} & \begin{center}\textbf{\textit{Reason}}\end{center} \\
     \hline
     External arrival & Nothing & The customer arrives and needs to queue before starting service. \\
     \hline
@@ -785,7 +788,11 @@ The table below shows some of the possible conditional events that arise from ot
     \hline
     Release/Move customer & Nothing & A customer exits the system, and there is no queue at the current node and so no-one starts service. \\
     \hline
-\end{tabular}\\
+\end{tabular}
+ \caption{Table listing possible conditional event triggers.}
+ \label{tab:eventtriggers}
+ \end{center}
+ \end{table}
 
 Figure~\ref{fig:codestructure} illustrates the general structure of the objects and classes of the simulation code.
 
