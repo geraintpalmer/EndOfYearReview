@@ -823,50 +823,64 @@ Each \texttt{DataRecord} contains all the information about one \texttt{Individu
 
 The following pseudocode decribes the main loop of the simulation:
 
-\begin{lstlisting}
-while current_time < max_time:
-    next_active_node.have_event()
-    for all nodes:
-        update next event date
-    next_active_node = node with closest next_event_date
-    current_time = next_active_node.next_event_date
-\end{lstlisting}
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    Find next active node\;
+    \While{current time $<$ max time}{
+        Next active node has event\;
+        \For{all nodes}{
+            update next event date\;
+        }\;
+        next active node $\leftarrow$ node with closest next event date\;
+        current time $\leftarrow$ next event date of next active node\;
+    }\;
+\end{algorithm}
 
-Here the method \texttt{have\_event()} contains most the simulation process.
-If the \texttt{next\_active\_node} is an \texttt{ArrivalNode} then the following pseudocode describes the method:
+Here most the simulation process is carried out in the command `have event'.
+If the next active node is an \texttt{ArrivalNode} then the following pseudocode describes the method:
 
-\begin{lstlisting}
-create new ind = Individual()
-if ind.next_node has enough queueing capacity:
-    join queue at next_node
-else:
-    ind lost to system
-\end{lstlisting}
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    Create a new \texttt{Individual()}\;
+    Determine this individual's next node\;
+    \eIf{enough capacity at next node}{
+        Join queue at next node\;
+    }{
+        The individual is lost to the system\;
+    }\;
+\end{algorithm}
 
-\texttt{ExitNode} will never have an event, as its \texttt{next\_event\_date} is always set to infinity.
-For all other \texttt{Nodes} the \texttt{have\_event()} method is described in the pseudocode below:
+\texttt{ExitNode} will never have an event, as its next event date  is always set to infinity.
+For all other \texttt{Nodes}, the `have event' command is described in the pseudocode below:
 
-\begin{lstlisting}
-next_individual = individual that is finishing service
-if next_individual.next_node has enough queueing space:
-    release(next_individual)
-else:
-    block next_individual
-\end{lstlisting}
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    next individual $\leftarrow$ individual that is finishing service\;
+    Determine next individual's next node\;
+    \eIf{enough capacity at next node}{
+        release next individual\;
+    }{
+        block next individual\;
+    }\;
+\end{algorithm}
 
-where the \texttt{release()} method acts as follows:
+where the command release acts as follows:
 
-\begin{lstlisting}
-    move next_individual to next_node
-    if next_node.queue_length == 0:
-        start service
-    if any blocked individuals need to join this queue:
-        release(blocked_individual)
-    if individual waiting to start service at this node:
-        start service
-\end{lstlisting}
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    Move individual to next node\;
+    \If{queue length at next node = 0}{
+        start service\;
+    }\;
+    \If{any individuals need to join this queue}{
+        release blocked individual\;
+    }\;
+    \If{individual waiting to start service at this node}{
+        start service\;
+    }\;
+\end{algorithm}
 
-Notice that the \texttt{release()} method is recursive, and so the process of unblocking individuals can continue until no more individuals can be unblocked.
+Notice that the release command is recursive, and so the process of unblocking individuals can continue until no more individuals can be unblocked.
 
 
 \section{Deadlocking Properties of Open Restircted Queueing Networks}\label{sec:deadlock}
