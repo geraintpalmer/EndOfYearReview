@@ -86,7 +86,7 @@ analytic results will be compared to results obtained through simulation.
 A user friendly Django application of this simulation will be built which will
 feature simple parameter inputs and graphical outputs.
 
-An extention of analysing current and potential patient flows is to derive optimal patient flows, which will be discussed in the next subsection.
+An extension of analysing current and potential patient flows is to derive optimal patient flows, which will be discussed in the next subsection.
 
 \subsection{Optimal Routing of Patients}
 
@@ -111,7 +111,7 @@ In order to implement this for the queueing network simulation model:
 \end{itemize}
 
 Two potentially interesting areas to investigate are the effect of social vs selfish rewards, and how much each agent knows about the system.
-Social vs selfish rewards corresponds to node receiving rewards according to the system's state vs recieving rewards from just its own state.
+Social vs selfish rewards corresponds to node receiving rewards according to the system's state vs receiving rewards from just its own state.
 Agents could be observing the whole system's state or only observing its own state.
 
 An extension of the above problem could be finding the optimal routing of
@@ -124,7 +124,7 @@ The purpose of investigating patient flows in this project is to plan and supply
 
 \subsection{Workforce Planning}
 
-The performance measuresof the queueing network models will be used to
+The performance measures of the queueing network models will be used to
 compare the workforce needs and skill mix required to care for frail and elderly
 patients across the ABUHB.
 With the user-friendly application, future trends and potential scenarios may be explored, with their effect on workforce investigated.
@@ -170,7 +170,7 @@ MA0261 and the first year module MA1003.
 I have participated in two hackathon weekends in order to develop my programming skills, and am a regular tutor for maths and stats support.
 
 The rest of this report is structured as follows:
-Section~\ref{sec:litreview} will reviw the relevant literature, Section~\ref{sec:analyticalmodels} will discuss methods of analytically investigating queueing networks, and Section~\ref{sec:deadlock} will discuss deadlocking properties of queueing networks.
+Section~\ref{sec:litreview} will review the relevant literature, Section~\ref{sec:analyticalmodels} will discuss methods of analytically investigating queueing networks, and Section~\ref{sec:deadlock} will discuss deadlocking properties of queueing networks.
 
 \section{Literature Review}\label{sec:litreview}
 
@@ -246,7 +246,7 @@ The following product form solution is proved:
     P(k_1, k_2, \dotsc, k_M) = \prod_{i=1}^M P_i(k_i)
 \end{equation}
 
-where $P_i(k_i)$ is the probability of node $i$ containing $k_i$ customers, and $P(k_1, k_2, \dotsc, k_M)$ represents the probability of the system being in the state $(k_1, k_2, \dotsc, k_M)$, having $k_j$ cutomers at node $j$ for all $j$.
+where $P_i(k_i)$ is the probability of node $i$ containing $k_i$ customers, and $P(k_1, k_2, \dotsc, k_M)$ represents the probability of the system being in the state $(k_1, k_2, \dotsc, k_M)$, having $k_j$ customers at node $j$ for all $j$.
 
 The basic model is extended in \cite{kelly75} to include different classes of customer, each with their own routing probabilities around the network and own service times at each node.
 The analysis concentrates on obtaining steady-state probabilities for the system state defined as $C = (c_1, c_2, ... , c_J)$.
@@ -260,7 +260,7 @@ The next subsection will discuss more general feature in queueing theory that ar
 
 More complicated customer behaviours have been studied in queueing theory, such
 as balking and reneging.
-Balking isdefined as a customer arriving but deciding not to join the queue,
+Balking is defined as a customer arriving but deciding not to join the queue,
 therefore getting lost to the system.
 Reneging is when a customer entering a queue but then leaving before entering service.
 Queues with reneging are usually denoted with an extension to Kendall's notation, by $A/B/C/K/m/Z + D$, where $D$ denotes the reneging method.
@@ -471,7 +471,7 @@ P(j)=\left\{\;\begin{array}{@{}c@{}}
 Now, if we wish to find $P(3, 1, 1)$, the probability that node 1 has 3
 customers, node 2 has 1 customer and node 3 has 1 customer, by Jackson's Theorem
 we can look at each node separately.
-The above equations yield $P_1(3) \approx 0.10541$, $P_2(1) \approx 0.22172$ ane $P_3(1) \approx 0.29827$.
+The above equations yield $P_1(3) \approx 0.10541$, $P_2(1) \approx 0.22172$ and $P_3(1) \approx 0.29827$.
 And so:
 
 \begin{equation*}
@@ -519,7 +519,7 @@ We will concentrate on restricted networks with feedforward flows only.
 % difference equations\dots (but again this whole section is not great\dots)
 This method was used in \cite{baber08} to investigate the behaviour of queues with blocking.
 In this method equations are derived for every state of the queueing network, and so networks with very many states become very difficult to solve.
-This method is entirely equivalent to the method decribed in the next subsection, Markov chains.
+This method is entirely equivalent to the method described in the next subsection, Markov chains.
 In this case, we are modelling the queue as a Markov chain and solving from first principals, rather than manipulating transition matrices in the next subsection.
 
 In this example, a network with only two single-server service centres, and no queueing space, is solved.
@@ -613,7 +613,7 @@ This network is shown in Figure~\ref{fig:2nodesQs}.
 
 \begin{figure}[H]
     \includestandalone[width=\textwidth]{images/2nodesQueues}
-    \caption{A two-node queueing network with finitie queues.}
+    \caption{A two-node queueing network with finite queues.}
     \label{fig:2nodesQs}
 \end{figure}
 
@@ -757,7 +757,7 @@ This is shown in Figure~\ref{fig:3phase}.
 In the A-phase the simulation clock is moved to the time of the next event.
 In the B-phase all scheduled events for that time are carried out.
 In the C-phase we check whether some of the events just carried out has caused any more conditional events to need to occur, and these are carried out.
-At the decision node `Any more C?', we check whether the C-events that just occured has caused any more C events to need to occur.
+At the decision node `Any more C?', we check whether the C-events that just occurred has caused any more C events to need to occur.
 
 In the simulation framework built, B-events correspond to either an external arrival, or a customer finishing service.
 C-events correspond to a customer starting service, or a customer being released from a node.
@@ -805,7 +805,7 @@ They never remain here, immediately being released to the relevant node when spa
 
 The \texttt{ExitNode} is a dummy node, that simply acts as a bucket to send and store \texttt{Individuals} that leave the system.
 
-The Nodes are where \texttt{Individuals} queue for service, recieve service, and remain when blocked.
+The Nodes are where \texttt{Individuals} queue for service, receive service, and remain when blocked.
 Nodes contain all the methods required to give \texttt{Individuals} \texttt{arrival\_date}, \texttt{service\_start\_date}, \texttt{service\_end\_date}, \texttt{service\_time} and \texttt{exit\_date}.
 This object also contains all methods to move \texttt{Individuals} from \texttt{Node} to \texttt{Node}, block \texttt{Individuals}, and write the \texttt{DataRecords} of \texttt{Individuals}.
 
@@ -821,7 +821,7 @@ Each \texttt{DataRecord} contains all the information about one \texttt{Individu
     \label{fig:codestructure}
 \end{figure}
 
-The following pseudocode decribes the main loop of the simulation:
+The following pseudocode describes the main loop of the simulation:
 
 \begin{algorithm}[H]
     \DontPrintSemicolon
@@ -883,7 +883,7 @@ where the command release acts as follows:
 Notice that the release command is recursive, and so the process of unblocking individuals can continue until no more individuals can be unblocked.
 
 
-\section{Deadlocking Properties of Open Restircted Queueing Networks}\label{sec:deadlock}
+\section{Deadlocking Properties of Open Restricted Queueing Networks}\label{sec:deadlock}
 
 This section will define and discuss the properties and detection of deadlock in queueing networks.
 Throughout the section, when discussing queueing networks, it is assumed that
@@ -900,7 +900,7 @@ Open queueing networks are those networks that have at least one node to which c
 
 Deadlock can be experienced in any open queueing network that experiences
 blocking, with at least once cycle containing all service stations with
-resticted queueing capacity.
+restricted queueing capacity.
 
 Deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
 That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.
@@ -968,13 +968,13 @@ For connected queueing networks, these deadlocks can be classified into transien
 \end{definition}
 
 Figure~\ref{fig:transabsorb} shows a three nodes network in a transient deadlocked state, and an absorbing deadlocked state.
-In Figure~\ref{fig:trans} the occupants of servers $B_1$ and $B_2$ are blocked from entering node $A$; and the occipant of server $A_1$ is blocked from entering node $B$, and so these two nodes are in deadlock.
+In Figure~\ref{fig:trans} the occupants of servers $B_1$ and $B_2$ are blocked from entering node $A$; and the occupant of server $A_1$ is blocked from entering node $B$, and so these two nodes are in deadlock.
 However, node $C$ can continue with regular services, until the occupants of every server of $C$ attempt to join a deadlocked node.
 At which point, the whole system is deadlocked, and so has reached absorbing deadlock, show in Figure~\ref{fig:absorb}.
 
 \begin{figure}[H]
 \begin{subfigure}[b]{0.5\textwidth}
-  \includestandalone[width=0.9\textwidth]{images/transientdeadlock}
+  \includestandalone[width=0.9\textwidth]{images/transientdeadlock}vertices
   \caption{Transient deadlock.}
   \label{fig:trans}
 \end{subfigure}
@@ -1015,7 +1015,7 @@ Dynamic state-graphs are defined, with resources as vertices and requests as edg
 For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cylce.
 
 In \cite{choetal95} the vertices and edges of the state graph are given labels in relation to a reference node.
-Using these labels \textit{simple bounded circuits} are defined whose existance within the state graph is sufficient to detect deadlock.
+Using these labels \textit{simple bounded circuits} are defined whose existence within the state graph is sufficient to detect deadlock.
 
 
 \subsection{Definitions}
@@ -1189,17 +1189,17 @@ Consider one weakly connected component $G(t)$ of $D(t)$.
 Consider the node $X_a \in G(t)$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
 Consider the case when $X_a$ is occupied by individual $a$, whose next destination is node $j$.
 Then $X_a$'s direct successors are the servers occupied by individuals who are blocked or in service at node $j$.
-We can interpret all $X_a$'s decendents as the servers whose occupants are directly or indirectly blocking $a$, and we can interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
+We can interpret all $X_a$'s descendants as the servers whose occupants are directly or indirectly blocking $a$, and we can interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
 
 Note that the only possibilities for $\text{deg}^{\text{out}}(X_a)$ are being 0 or $c_j$.
 If $\text{deg}^{\text{out}}(X_a) = c_j$ then $a$ is blocked by all its direct successors.
 The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because $a$ is in service at $X_a$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.
 
-It is clear that if all of $X_a$'s descendents are occupied by blocked individuals, then the system is deadlocked at time $t$.
+It is clear that if all of $X_a$'s descendants are occupied by blocked individuals, then the system is deadlocked at time $t$.
 We also know that by definition all of $X_a$'s ancestors are occupied by blocked individuals.
 
 Also note that if a service-station subgraph $d_i(t)$ contains edges, then there is an individual in $X_a \in d_i(t)$ that is being blocked by himself.
-This does not necassarily mean there is deadlock.
+This does not necessarily mean there is deadlock.
 
 
 \subsection{Results on the State Digraph}
@@ -1210,14 +1210,14 @@ A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
 
 \begin{proof}
 Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
-All vertices of $G(t)$ are either decendents of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
+All vertices of $G(t)$ are either descendants of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
 
-Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$, and there is a path from every other non-sink vertix to $X$.
-This imples that $X$'s occupant is not blocked and is a descendent of another vertrex.
-Therefore $Q$ is not deadlocked as there does not exist a vertex whose descendents are all blocked.
+Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$, and there is a path from every other non-sink vertex to $X$.
+This implies that $X$'s occupant is not blocked and is a descendant of another vertex.
+Therefore $Q$ is not deadlocked as there does not exist a vertex whose descendants are all blocked.
 
 Now assume that we have deadlock.
-For a vertex $X$ who is deadlocked, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
+For a vertex $X$ who is deadlocked, all descendants of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
 And so there is no path from $X$ to a vertex with out-degree of 0.
 \end{proof}
 
@@ -1238,7 +1238,7 @@ The servers of node 1 and 2 consist of the entirety of $D(t)$, and so there is n
 
 Now consider the case when only one node is involved in the deadlock.
 Without loss of generality, let's say that node 1 is in deadlock with itself, then the servers of node 1 have out-edges.
-For the servers of node 2 to be part of that weakly conneced component, there either needs to be an edge from a server in node 1 to a server in node 2, or and edge from a server in node 2 to a server in node 1.
+For the servers of node 2 to be part of that weakly connected component, there either needs to be an edge from a server in node 1 to a server in node 2, or and edge from a server in node 2 to a server in node 1.
 An edge from a server in node 1 to a server in node 2 implies that a customer from node 1 is blocked from entering node 2, and so node 1 is not in deadlock with itself.
 An edge from a server in node 2 to a server in node 1 implies that a customer in node 2 is blocked from entering node 1.
 In this case the server in node 2 has an out-edge, and so there is still no sink.
@@ -1267,7 +1267,7 @@ An absorbing deadlocked state arises at time $t$ if $D(t)$ doesn't contain a sin
 \begin{proof}
 A vertex with out-degree greater than zero represents an occupied server whose occupant has finished service and is blocked.
 If all vertices have out-degree greater than zero, then all servers are occupied by blocked individuals.
-A release at vertex $X_a$ can only be triggered by one of $X_a$'s descendents finishing service.
+A release at vertex $X_a$ can only be triggered by one of $X_a$'s descendants finishing service.
 As all servers are occupied by blocked individuals, no server can finish service, and so no server can release their occupant, implying an absorbing deadlocked state.
 \end{proof}
 
@@ -1275,7 +1275,7 @@ As all servers are occupied by blocked individuals, no server can finish service
 Here is an initial draft of an algorithm for dynamically finding a knot in the state digraph of the queueing network.
 
 \begin{theorem}
-    The existance of a knot in the state digraph is equivalent to the existance of a vertex with an out-edge but without a path to a sink.
+    The existence of a knot in the state digraph is equivalent to the existence of a vertex with an out-edge but without a path to a sink.
 \end{theorem}
 
 \begin{proof}
@@ -1303,7 +1303,7 @@ It is interesting to build an analytical model of the system's behaviour to dead
 As a Markov chain model, the deadlocking state is an absorbing state, and so any queueing network that can experience deadlock is guaranteed to experience deadlock.
 
 We can however find the expected time until deadlock is reached.
-It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & V \end{smallmatrix} \bigr)$ then the expected number of time steps until absorbtion starting from state $i$ is the $i\text{th}$ element of the vector
+It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & V \end{smallmatrix} \bigr)$ then the expected number of time steps until absorption starting from state $i$ is the $i\text{th}$ element of the vector
 \begin{equation}
   (I - T)^{-1}e
 \end{equation}
@@ -1487,7 +1487,7 @@ Again these are intuitive, as increasing the service rate results in moving cust
 
 \subsection{Resolving Deadlock}
 Once the system falls into a deadlocked state for the first time, that is the first transient deadlocked state since the last resolution, the simulated needs to automatically resolve the deadlock and allow services to resume again.
-This is not necassarily as simple as moving a blocked customer to his next node, as we need to conserve the numbers of customers at each service station.
+This is not necessarily as simple as moving a blocked customer to his next node, as we need to conserve the numbers of customers at each service station.
 Closer inspection of the state digraph is required in order to find a way to resolve deadlock whilst conserving this property.
 
 At deadlock, the service stations can be classified into the following three mutually exclusive categories:
@@ -1503,7 +1503,7 @@ The vertices of $K$ correspond to servers.
 As there is no sink node, all vertices of $K$ have an out-edge, and so all vertices in $K$ contain a blocked individual.
 Therefore, there are no vertices in $K$ belonging to nodes that are not deadlocked.
 All vertices of $K$ correspond to servers of causation nodes, and a causation node has all its servers belonging to $K$.
-An affected node has servers belonging to the same weakly connected component as $K$, but does ot have servers in $K$.
+An affected node has servers belonging to the same weakly connected component as $K$, but does not have servers in $K$.
 
 When choosing which customer to move in order to resolve deadlock, we must be careful to conserve the number of customers at each service station.
 Causation nodes have full queues, and a customer may only be moved into a full queue if this causes another customer to simultaneously move from this node.
